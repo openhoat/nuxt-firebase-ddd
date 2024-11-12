@@ -1,0 +1,28 @@
+on:
+  workflow_call:
+    inputs:
+      firebase_env:
+        type: string
+        required: true
+    secrets:
+      firebase_service_account:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout git project
+        uses: actions/checkout@v4
+      - name: Install PNPM and dependencies
+        uses: ./.github/actions/pnpm-install
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: 'build'
+      - name: Authenticate Google Cloud
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.firebase_service_account }}'
+      - name: Deploy to Firebase
+        run: pnpm run deploy:ci:${{ inputs.firebase_env }}

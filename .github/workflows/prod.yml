@@ -1,0 +1,34 @@
+name: 'Deploy to prod'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check:
+    name: Prod check
+    uses: ./.github/workflows/check.yml
+  build:
+    name: Prod build
+    uses: ./.github/workflows/build.yml
+    with:
+      firebase_app_id: '1:459872309701:web:976518a789250ece383bac'
+      firebase_auth_domain: 'headwood-1cdfb.firebaseapp.com'
+      firebase_measurement_id: 'G-ZPFSNFQVFV'
+      firebase_messaging_sender_id: '459872309701'
+      firebase_project_id: 'headwood-1cdfb'
+      firebase_storage_bucket: 'headwood-1cdfb.firebasestorage.app'
+    secrets:
+      firebase_api_key: '${{ secrets.PROD_FIREBASE_API_KEY }}'
+      firebase_service_account: '${{ secrets.PROD_FIREBASE_SERVICE_ACCOUNT }}'
+  deploy:
+    name: Prod deploy
+    needs:
+      - check
+      - build
+    uses: ./.github/workflows/deploy.yml
+    with:
+      firebase_env: prod
+    secrets:
+      firebase_service_account: '${{ secrets.PROD_FIREBASE_SERVICE_ACCOUNT }}'

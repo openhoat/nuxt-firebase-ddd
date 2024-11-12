@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+
+const {
+  FIREBASE_API_KEY,
+  FIREBASE_APP_ID,
+  FIREBASE_AUTH_DOMAIN,
+  FIREBASE_AUTH_EMULATOR_URL,
+  FIREBASE_MEASUREMENT_ID,
+  FIREBASE_MESSAGING_SENDER_ID,
+  FIREBASE_SERVICE_ACCOUNT,
+  FIREBASE_STORAGE_BUCKET,
+} = process.env
+
+if (typeof FIREBASE_API_KEY === 'undefined') {
+  throw new Error('Missing FIREBASE_API_KEY env var.')
+}
+
+if (typeof FIREBASE_APP_ID === 'undefined') {
+  throw new Error('Missing FIREBASE_APP_ID env var.')
+}
+
+if (typeof FIREBASE_SERVICE_ACCOUNT === 'undefined') {
+  throw new Error('Missing FIREBASE_SERVICE_ACCOUNT env var.')
+}
+
+const serviceAccount = JSON.parse(FIREBASE_SERVICE_ACCOUNT)
+const { client_email: clientEmail, private_key: privateKey, project_id: projectId, type } = serviceAccount
+if (type !== 'service_account') {
+  throw new Error('Provided JSON file is not a valid service account.')
+}
+
+const envContent = `
+NUXT_FIREBASE_API_KEY=${FIREBASE_API_KEY}
+NUXT_FIREBASE_APP_ID=${FIREBASE_APP_ID}
+NUXT_FIREBASE_AUTH_DOMAIN=${FIREBASE_AUTH_DOMAIN}
+NUXT_FIREBASE_AUTH_EMULATOR_URL=${FIREBASE_AUTH_EMULATOR_URL}
+NUXT_FIREBASE_MEASUREMENT_ID=${FIREBASE_MEASUREMENT_ID}
+NUXT_FIREBASE_MESSAGING_SENDER_ID=${FIREBASE_MESSAGING_SENDER_ID}
+NUXT_FIREBASE_PROJECT_ID=${projectId}
+NUXT_FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL=${clientEmail}
+NUXT_FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY='${privateKey}'
+NUXT_FIREBASE_STORAGE_BUCKET=${FIREBASE_STORAGE_BUCKET}
+`
+
+process.stdout.write(Buffer.from(envContent))

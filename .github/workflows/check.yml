@@ -1,0 +1,13 @@
+on:
+  workflow_call:
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout git project
+        uses: actions/checkout@v4
+      - name: Install PNPM and dependencies
+        uses: ./.github/actions/pnpm-install
+      - name: Check project quality
+        run: pnpm run check:all
