@@ -1,0 +1,16 @@
+/.DS_Store/
+/.firebase/
+/.idea/
+/.npm/
+/.nuxt/
+/.wireit/
+/.vscode/
+/dist/
+/node_modules/
+/tmp/
+
+/.envrc
+/.env.local
+
+*.log
+tsconfig.tsbuildinfo
