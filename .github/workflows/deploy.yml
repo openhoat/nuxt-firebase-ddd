@@ -1,0 +1,34 @@
+on:
+  workflow_call:
+    inputs:
+      firebase_env:
+        type: string
+        required: true
+    secrets:
+      git_crypt_key:
+        required: true
+      firebase_service_account:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout git project
+        uses: actions/checkout@v4
+      - name: Unlock git crypt
+        uses: sliteteam/github-action-git-crypt-unlock@1.3.0
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.git_crypt_key }}
+      - name: Install PNPM and dependencies
+        uses: ./.github/actions/pnpm-install
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: 'build'
+      - name: Authenticate Google Cloud
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.firebase_service_account }}'
+      - name: Deploy to Firebase
+        run: pnpm run deploy:ci:${{ inputs.firebase_env }}
