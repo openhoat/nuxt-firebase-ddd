@@ -1,0 +1,49 @@
+{
+  "$schema": "https://raw.githubusercontent.com/firebase/firebase-tools/master/schema/firebase-config.json",
+  "emulators": {
+    "singleProjectMode": true,
+    "ui": {
+      "enabled": true
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "ignore": [
+        ".git",
+        ".npm",
+        ".wireit",
+        "node_modules",
+        "public",
+        "tsconfig.tsbuildinfo",
+        "*.log"
+      ],
+      "runtime": "nodejs20",
+      "source": "dist/nuxt/server",
+      "codebase": "default"
+    }
+  ],
+  "hosting": {
+    "cleanUrls": true,
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "public": "dist/nuxt/public",
+    "rewrites": [
+      {
+        "source": "/favicon.ico",
+        "destination": "/_nuxt/favicon.ico"
+      },
+      {
+        "source": "/robots.txt",
+        "destination": "/_nuxt/robots.txt"
+      },
+      {
+        "source": "**",
+        "function": "server",
+        "region": "europe-west9"
+      }
+    ]
+  }
+}
