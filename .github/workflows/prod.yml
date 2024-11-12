@@ -1,0 +1,24 @@
+name: 'Deploy to prod'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/build.yml
+  check:
+    name: Check
+    uses: ./.github/workflows/check.yml
+  deploy:
+    name: Deploy to prod
+    uses: ./.github/workflows/deploy.yml
+    needs:
+      - build
+      - check
+    with:
+      firebaseProjectId: prod
+    secrets:
+      firebaseServiceAccount: '${{ secrets.PROD_FIREBASE_SERVICE_ACCOUNT }}'
