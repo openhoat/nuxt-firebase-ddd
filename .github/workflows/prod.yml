@@ -1,0 +1,31 @@
+name: 'Deploy to prod'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check:
+    name: Check
+    uses: ./.github/workflows/check.yml
+    secrets:
+      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
+  build:
+    name: Build for prod
+    uses: ./.github/workflows/build.yml
+    with:
+      firebase_env: prod
+    secrets:
+      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
+  deploy:
+    name: Deploy to prod
+    needs:
+      - check
+      - build
+    uses: ./.github/workflows/deploy.yml
+    with:
+      firebase_env: prod
+    secrets:
+      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
+      firebase_service_account: '${{ secrets.PROD_FIREBASE_SERVICE_ACCOUNT }}'
