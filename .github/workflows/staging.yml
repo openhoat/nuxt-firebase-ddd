@@ -1,0 +1,29 @@
+name: 'Deploy to staging'
+
+on:
+  pull_request:
+
+jobs:
+  check:
+    name: Check
+    uses: ./.github/workflows/check.yml
+    secrets:
+      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
+  build:
+    name: Build for staging
+    uses: ./.github/workflows/build.yml
+    with:
+      firebase_env: staging
+    secrets:
+      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
+  deploy:
+    name: Deploy to staging
+    needs:
+      - check
+      - build
+    uses: ./.github/workflows/deploy.yml
+    with:
+      firebase_env: staging
+    secrets:
+      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
+      firebase_service_account: '${{ secrets.STAGING_FIREBASE_SERVICE_ACCOUNT }}'
