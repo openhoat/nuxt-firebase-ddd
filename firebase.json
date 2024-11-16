@@ -3,6 +3,10 @@
   "emulators": {
     "singleProjectMode": true
   },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
   "functions": [
     {
       "ignore": [

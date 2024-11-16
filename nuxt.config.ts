@@ -13,5 +13,11 @@ export default defineNuxtConfig({
       dir: 'dist/nuxt',
     },
   },
+  runtimeConfig: {
+    fbAdminClientEmail: process.env.NUXT_FB_ADMIN_CLIENT_EMAIL,
+    fbAdminPrivateKey: process.env.NUXT_FB_ADMIN_PRIVATE_KEY,
+    fbAdminProjectId: process.env.NUXT_FB_ADMIN_PROJECT_ID,
+    fbAdminServiceAccount: process.env.NUXT_FB_ADMIN_SERVICE_ACCOUNT === 'true',
+  },
   srcDir: 'src',
 })
