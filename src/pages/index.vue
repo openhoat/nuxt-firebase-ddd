@@ -10,4 +10,7 @@ const route = useRoute()
   <v-card class="pa-6">
     <Hello />
   </v-card>
+  <v-card class="pa-6">
+    <Counter />
+  </v-card>
 </template>
