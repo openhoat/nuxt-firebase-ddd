@@ -13,4 +13,7 @@ const route = useRoute()
   <div>
     <Counter />
   </div>
+  <div>
+    <Login />
+  </div>
 </template>
