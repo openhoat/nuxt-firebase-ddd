@@ -1,14 +1,19 @@
 <script lang="ts" setup>
 const text = ref<string>()
-const hello = () => {
-  console.log('hello!')
-  text.value = text.value ? undefined : 'world!'
+const hello = async () => {
+  if (text.value) {
+    text.value = undefined
+    return
+  }
+  const helloData = await $fetch<{ hello: string }>('/api/hello')
+  console.log('helloData:', helloData)
+  text.value = helloData.hello
 }
 </script>
 
 <template>
   <v-card-text>
     <button @click="hello()">Hello</button>
-    <p>{{ text }}</p>
+    <p :v-if="text">{{ text }}</p>
   </v-card-text>
 </template>
