@@ -10,4 +10,7 @@ const route = useRoute()
   <div>
     <Hello />
   </div>
+  <div>
+    <Counter />
+  </div>
 </template>
