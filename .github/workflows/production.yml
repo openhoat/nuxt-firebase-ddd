@@ -1,0 +1,25 @@
+name: 'Deploy to production'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build for production
+    uses: ./.github/workflows/build.yml
+  check:
+    name: Check for production
+    uses: ./.github/workflows/check.yml
+  preview:
+    name: Deploy for production
+    uses: ./.github/workflows/deploy.yml
+    needs:
+      - build
+      - check
+    with:
+      channelId: live
+    secrets:
+      repoToken: ${{ secrets.GITHUB_TOKEN }}
+      firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_FIR_89CB3 }}

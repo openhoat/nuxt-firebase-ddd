@@ -1,0 +1,26 @@
+on:
+  workflow_call:
+    inputs:
+      channelId:
+        required: false
+        type: string
+      projectId:
+        required: false
+        type: string
+        default: fir-89cb3
+    secrets:
+      firebaseServiceAccount:
+        required: true
+      repoToken:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/pnpm-install
+      - uses: actions/download-artifact@v4
+        with:
+          name: 'build'
+      - run: pnpm run deploy
