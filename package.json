@@ -45,6 +45,7 @@
     "copy:assets": "wireit",
     "copy:env": "wireit",
     "copy:env:local": "wireit",
+    "deploy": "wireit",
     "deploy:prod": "wireit",
     "deploy:staging": "wireit",
     "dev": "wireit",
@@ -168,13 +169,21 @@
       "command": "cpx .env.local dist/nuxt/server/",
       "files": [".env.local"]
     },
-    "deploy:prod": {
-      "command": "firebase -P prod deploy --only functions,hosting",
+    "deploy": {
+      "command": "firebase -P \"${FIREBASE_PROJECT_ID}\" deploy --only functions,hosting",
       "dependencies": ["build:firebase"]
     },
+    "deploy:prod": {
+      "command": "pnpm run deploy",
+      "env": {
+        "FIREBASE_PROJECT_ID": "prod"
+      }
+    },
     "deploy:staging": {
-      "command": "firebase -P staging deploy --only functions,hosting",
-      "dependencies": ["build:firebase"]
+      "command": "pnpm run deploy",
+      "env": {
+        "FIREBASE_PROJECT_ID": "staging"
+      }
     },
     "dev": {
       "command": "nuxt dev --dotenv .env.local",

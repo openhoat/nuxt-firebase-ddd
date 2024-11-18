@@ -1,6 +1,6 @@
 {
   "projects": {
     "prod": "fir-89cb3",
-    "staging": "nuxt-firebase-staging"
+    "staging": "headwood-1cdfb"
   }
 }

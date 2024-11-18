@@ -1,0 +1,27 @@
+on:
+  workflow_call:
+    inputs:
+      firebaseProjectId:
+        required: true
+        type: string
+    secrets:
+      firebaseServiceAccount:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/pnpm-install
+      - name: '📦 Download artifacts'
+        uses: actions/download-artifact@v4
+        with:
+          name: 'build'
+          path: dist/nuxt/
+      - uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.firebaseServiceAccount }}'
+      - run: pnpm run deploy
+        env:
+          FIREBASE_PROJECT_ID: '${{ inputs.firebaseProjectId }}'
