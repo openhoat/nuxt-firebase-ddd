@@ -1,0 +1,16 @@
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/pnpm-install
+      - run: pnpm run build:firebase
+      - uses: actions/upload-artifact@v4
+        with:
+          name: 'build'
+          path: |
+            .nuxt/
+            dist/nuxt/

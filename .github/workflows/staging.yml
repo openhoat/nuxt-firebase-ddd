@@ -1,0 +1,20 @@
+name: 'Deploy to staging'
+
+on:
+  pull_request:
+
+jobs:
+#  build:
+#    name: Build
+#    uses: ./.github/workflows/build.yml
+#  check:
+#    name: Check
+#    uses: ./.github/workflows/check.yml
+  deploy:
+    name: Deploy to staging
+    uses: ./.github/workflows/deploy.yml
+#    needs:
+#      - build
+#      - check
+    secrets:
+      firebaseToken: ${{ secrets.FIREBASE_TOKEN_STAGING }}
