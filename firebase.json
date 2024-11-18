@@ -1,7 +1,14 @@
 {
   "$schema": "https://raw.githubusercontent.com/firebase/firebase-tools/master/schema/firebase-config.json",
   "emulators": {
-    "singleProjectMode": true
+    "singleProjectMode": true,
+    "ui": {
+      "enabled": true
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   },
   "functions": [
     {
