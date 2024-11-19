@@ -1,13 +1,13 @@
-<script setup lang="ts">
+<script setup>
 const route = useRoute()
 </script>
 
 <template>
-  <div>
+  <v-card class="pa-6">
     <h1>Demo</h1>
-    <p>Current route: {{ route.path }}</p>
-  </div>
-  <div>
+    <h6>Current route: {{ route.path }}</h6>
+  </v-card>
+  <v-card class="pa-6">
     <Hello />
-  </div>
+  </v-card>
 </template>
