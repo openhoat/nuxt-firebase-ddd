@@ -1,0 +1,22 @@
+name: 'Deploy to staging'
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/build.yml
+  check:
+    name: Check
+    uses: ./.github/workflows/check.yml
+  deploy:
+    name: Deploy to staging
+    uses: ./.github/workflows/deploy.yml
+    needs:
+      - build
+      - check
+    with:
+      firebaseProjectId: staging
+    secrets:
+      firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_STAGING }}'
