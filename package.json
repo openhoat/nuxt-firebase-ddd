@@ -54,6 +54,7 @@
     "format": "biome format .",
     "format:fix": "biome format --fix .",
     "generate": "nuxt generate --dotenv .env.local",
+    "kill:emulators": "lsof -t -i:4000,4400,5000,5001 | xargs -r kill -s TERM",
     "lint": "biome lint .",
     "lint:fix": "biome lint --fix .",
     "preview": "nuxt preview",
