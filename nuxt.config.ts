@@ -27,6 +27,13 @@ export default defineNuxtConfig({
       dir: 'dist/nuxt',
     },
   },
+  runtimeConfig: {
+    firebaseAdminClientEmail: process.env.NUXT_FIREBASE_ADMIN_CLIENT_EMAIL,
+    firebaseAdminPrivateKey: process.env.NUXT_FIREBASE_ADMIN_PRIVATE_KEY,
+    firebaseAdminProjectId: process.env.NUXT_FIREBASE_ADMIN_PROJECT_ID,
+    firebaseAdminServiceAccount:
+      process.env.NUXT_FIREBASE_ADMIN_SERVICE_ACCOUNT === 'true',
+  },
   srcDir: 'src',
   vite: {
     vue: {
