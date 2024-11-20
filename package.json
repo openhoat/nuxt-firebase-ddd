@@ -49,7 +49,7 @@
     "copy:env": "wireit",
     "copy:env:local": "wireit",
     "deploy": "wireit",
-    "deploy:ci": "firebase -P \"${FIREBASE_PROJECT_ID}\" deploy --only functions,hosting",
+    "deploy:ci": "firebase -P \"${FIREBASE_PROJECT_ID}\" deploy --only firestore,functions,hosting",
     "deploy:prod": "wireit",
     "deploy:staging": "wireit",
     "dev": "wireit",
@@ -176,7 +176,7 @@
       "files": [".env.local"]
     },
     "deploy": {
-      "command": "firebase -P \"${FIREBASE_PROJECT_ID}\" deploy --only functions,hosting",
+      "command": "firebase -P \"${FIREBASE_PROJECT_ID}\" deploy --only firestore,functions,hosting",
       "dependencies": ["build:firebase"]
     },
     "deploy:prod": {
@@ -218,7 +218,7 @@
       "service": true
     },
     "start:emulators": {
-      "command": "firebase emulators:start --only functions,hosting",
+      "command": "firebase emulators:start --only firestore,functions,hosting",
       "dependencies": ["build:firebase"],
       "env": {
         "NODE_ENV": "production"
