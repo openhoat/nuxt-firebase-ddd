@@ -7,6 +7,8 @@ on:
     secrets:
       firebaseServiceAccount:
         required: true
+      firebaseApiKey:
+        required: true
 
 jobs:
   deploy:
@@ -25,3 +27,4 @@ jobs:
       - run: pnpm run deploy:ci
         env:
           FIREBASE_PROJECT_ID: '${{ inputs.firebaseProjectId }}'
+          NUXT_FB_API_KEY: '${{ secrets.firebaseApiKey }}'

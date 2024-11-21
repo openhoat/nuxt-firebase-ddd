@@ -22,3 +22,4 @@ jobs:
       firebaseProjectId: prod
     secrets:
       firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PROD }}'
+      firebaseApiKey: '${{ secrets.FIREBASE_API_KEY_PROD }}'
