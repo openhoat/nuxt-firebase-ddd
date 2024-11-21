@@ -7,8 +7,6 @@ on:
     secrets:
       firebaseServiceAccount:
         required: true
-      firebaseApiKey:
-        required: true
 
 jobs:
   deploy:
@@ -24,7 +22,7 @@ jobs:
       - uses: 'google-github-actions/auth@v2'
         with:
           credentials_json: '${{ secrets.firebaseServiceAccount }}'
+      - run: pnpm exec firebase functions:config:set someservice.key="THE API KEY" someservice.id="THE CLIENT ID"
       - run: pnpm run deploy:ci
         env:
           FIREBASE_PROJECT_ID: '${{ inputs.firebaseProjectId }}'
-          NUXT_FB_API_KEY: '${{ secrets.firebaseApiKey }}'

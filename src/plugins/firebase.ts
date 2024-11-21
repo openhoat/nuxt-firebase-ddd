@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app'
+import { type FirebaseOptions, initializeApp } from 'firebase/app'
 import {
   browserLocalPersistence,
   connectAuthEmulator,
@@ -8,22 +8,25 @@ import {
 export default defineNuxtPlugin(async () => {
   const config = useRuntimeConfig()
   const {
-    fbApiKey: apiKey,
-    fbAppId: appId,
-    fbAuthDomain: authDomain,
-    fbMessagingSenderId: messagingSenderId,
-    fbProjectId: projectId,
-    fbStorageBucket: storageBucket,
+    fbApiKeyProd,
+    fbApiKeyStaging,
+    fbAuthDomainProd,
+    fbAuthDomainStaging,
+    fbEnvTarget: envTarget,
     useFbAuthEmulator,
   } = config.public
-  const firebaseApp = initializeApp({
-    apiKey,
-    appId,
-    authDomain,
-    messagingSenderId,
-    projectId,
-    storageBucket,
-  })
+  const firebaseConfigs: Record<string, FirebaseOptions> = {
+    staging: {
+      apiKey: fbApiKeyStaging,
+      authDomain: fbAuthDomainStaging,
+    },
+    prod: {
+      apiKey: fbApiKeyProd,
+      authDomain: fbAuthDomainProd,
+    },
+  }
+  const firebaseConfig = firebaseConfigs[envTarget] ?? firebaseConfigs.staging
+  const firebaseApp = initializeApp(firebaseConfig)
   const auth = useFbAuthEmulator ? getAuth() : getAuth(firebaseApp)
   if (useFbAuthEmulator) {
     connectAuthEmulator(auth, 'http://localhost:9099')
