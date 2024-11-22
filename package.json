@@ -2,10 +2,12 @@
   "dependencies": {
     "@mdi/font": "7.4.47",
     "@nuxt/kit": "3.14.159",
+    "@pinia/nuxt": "0.7.0",
     "firebase": "11.0.1",
     "firebase-admin": "12.7.0",
     "h3": "1.13.0",
     "nuxt": "3.14.159",
+    "pinia": "2.2.6",
     "vue": "3.5.12",
     "vue-router": "4.4.5",
     "wireit": "0.14.9"
@@ -49,7 +51,7 @@
     "copy:env": "wireit",
     "copy:env:local": "wireit",
     "deploy": "wireit",
-    "deploy:ci": "firebase -P \"${FIREBASE_PROJECT_ID}\" deploy --only firestore,functions,hosting",
+    "deploy:ci": "firebase -P \"${NUXT_FIREBASE_PROJECT_ID}\" deploy --only auth,firestore,functions,hosting",
     "deploy:prod": "wireit",
     "deploy:staging": "wireit",
     "dev": "wireit",
@@ -176,19 +178,19 @@
       "files": [".env.local"]
     },
     "deploy": {
-      "command": "firebase -P \"${FIREBASE_PROJECT_ID}\" deploy --only firestore,functions,hosting",
+      "command": "firebase -P \"${NUXT_FIREBASE_PROJECT_ID}\" deploy --only auth,firestore,functions,hosting",
       "dependencies": ["build:firebase"]
     },
     "deploy:prod": {
       "command": "pnpm run deploy",
       "env": {
-        "FIREBASE_PROJECT_ID": "prod"
+        "NUXT_FIREBASE_PROJECT_ID": "prod"
       }
     },
     "deploy:staging": {
       "command": "pnpm run deploy",
       "env": {
-        "FIREBASE_PROJECT_ID": "staging"
+        "NUXT_FIREBASE_PROJECT_ID": "staging"
       }
     },
     "dev": {
@@ -218,7 +220,7 @@
       "service": true
     },
     "start:emulators": {
-      "command": "firebase emulators:start --only firestore,functions,hosting",
+      "command": "firebase emulators:start --only auth,firestore,functions,hosting",
       "dependencies": ["build:firebase"],
       "env": {
         "NODE_ENV": "production"

@@ -12,6 +12,7 @@ const initFirebaseInstance = (): FirebaseApp => {
     return getApp()
   }
   const config = useRuntimeConfig()
+  console.log('config in firebase server initialization:', config)
   const {
     firebaseAdminServiceAccount: useServiceAccount,
     firebaseAdminClientEmail: clientEmail,

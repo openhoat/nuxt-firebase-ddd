@@ -1,16 +1,19 @@
 on:
   workflow_call:
     inputs:
-      firebaseProjectId:
-        required: true
+      environmentName:
         type: string
-    secrets:
-      firebaseServiceAccount:
         required: true
+      environmentUrl:
+        type: string
+        required: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environmentName }}
+      url: ${{ inputs.environmentUrl }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/pnpm-install
@@ -21,7 +24,13 @@ jobs:
           path: dist/nuxt/
       - uses: 'google-github-actions/auth@v2'
         with:
-          credentials_json: '${{ secrets.firebaseServiceAccount }}'
+          credentials_json: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
       - run: pnpm run deploy:ci
         env:
-          FIREBASE_PROJECT_ID: '${{ inputs.firebaseProjectId }}'
+          NUXT_FIREBASE_API_KEY: '${{ secrets.NUXT_FIREBASE_API_KEY }}'
+          NUXT_FIREBASE_APP_ID: '${{ env.NUXT_FIREBASE_APP_ID }}'
+          NUXT_FIREBASE_AUTH_DOMAIN: '${{ env.NUXT_FIREBASE_AUTH_DOMAIN }}'
+          NUXT_FIREBASE_MEASUREMENT_ID: '${{ env.NUXT_FIREBASE_MEASUREMENT_ID }}'
+          NUXT_FIREBASE_MESSAGING_SENDER_ID: '${{ env.NUXT_FIREBASE_MESSAGING_SENDER_ID }}'
+          NUXT_FIREBASE_PROJECT_ID: '${{ env.NUXT_FIREBASE_PROJECT_ID }}'
+          NUXT_FIREBASE_STORAGE_BUCKET: '${{ env.NUXT_FIREBASE_STORAGE_BUCKET }}'
