@@ -38,6 +38,7 @@
   "scripts": {
     "build": "wireit",
     "build:firebase": "wireit",
+    "build:firebase:staging": "wireit",
     "build:firebase:copy": "wireit",
     "check": "biome check .",
     "check:fix": "biome check --fix .",
@@ -102,7 +103,7 @@
       "dependencies": ["build:firebase:nuxt"]
     },
     "build:firebase:copy": {
-      "dependencies": ["copy:assets", "copy:env", "copy:env:local"]
+      "dependencies": ["copy:assets", "copy:env", "copy:env:others"]
     },
     "build:firebase:nuxt": {
       "clean": "if-file-deleted",
@@ -123,6 +124,30 @@
         "pnpm-lock.yaml",
         "tsconfig.json"
       ]
+    },
+    "build:firebase:nuxt:staging": {
+      "clean": "if-file-deleted",
+      "command": "nuxt build --preset=firebase --dotenv .env.staging",
+      "dependencies": ["check:types"],
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "files": [
+        "public/**",
+        "src/**",
+        ".env",
+        ".env.staging",
+        ".firebaserc",
+        "fire*.json",
+        "nuxt.config.ts",
+        "package.json",
+        "pnpm-lock.yaml",
+        "tsconfig.json"
+      ]
+    },
+    "build:firebase:staging": {
+      "command": "pnpm run build:firebase:copy",
+      "dependencies": ["build:firebase:nuxt:staging"]
     },
     "check:types": {
       "command": "nuxt typecheck",
@@ -172,10 +197,10 @@
       "command": "cpx .env dist/nuxt/server/",
       "files": [".env"]
     },
-    "copy:env:local": {
+    "copy:env:others": {
       "clean": "if-file-deleted",
-      "command": "cpx .env.local dist/nuxt/server/",
-      "files": [".env.local"]
+      "command": "cpx '.env.*' dist/nuxt/server/",
+      "files": [".env.*"]
     },
     "deploy": {
       "command": "firebase -P \"${NUXT_FIREBASE_PROJECT_ID}\" deploy --only auth,firestore,functions,hosting",
