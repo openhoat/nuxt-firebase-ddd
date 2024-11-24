@@ -8,14 +8,23 @@ const logger = useLogger()
 const buildConfig = () => {
   logger.info('Loading config…')
   const {
+    NUXT_FIREBASE_API_KEY: firebaseApiKey = '',
+    NUXT_FIREBASE_APP_ID: firebaseAppId = '',
+    NUXT_FIREBASE_AUTH_DOMAIN: firebaseAuthDomain = '',
+    NUXT_FIREBASE_AUTH_EMULATOR_URL:
+      firebaseAuthEmulatorUrl = 'http://localhost:9099',
     NUXT_DEBUG: debug = 'false',
     NUXT_FIREBASE_CLOUD_REGION: region = 'europe-west9',
     NUXT_FIREBASE_CLOUD_MAX_INSTANCES: maxInstances = '3',
+    NUXT_FIREBASE_MEASUREMENT_ID: firebaseMeasurementId = '',
+    NUXT_FIREBASE_MESSAGING_SENDER_ID: firebaseMessagingSenderId = '',
     NUXT_FIREBASE_PROJECT_ID: firebaseProjectId = '',
     NUXT_FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL:
       firebaseServiceAccountClientEmail = '',
     NUXT_FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY:
       firebaseServiceAccountPrivateKey = '',
+    NUXT_FIREBASE_STORAGE_BUCKET: firebaseStorageBucket = '',
+    NUXT_FIREBASE_USE_AUTH_EMULATOR: firebaseUseAuthEmulator = 'false',
     NUXT_FIREBASE_USE_SERVICE_ACCOUNT: firebaseUseServiceAccount = 'false',
   } = process.env
   const config = {
@@ -27,7 +36,15 @@ const buildConfig = () => {
       firebaseServiceAccountPrivateKey,
       firebaseUseServiceAccount: firebaseUseServiceAccount === 'true',
       public: {
+        firebaseApiKey,
+        firebaseAppId,
+        firebaseAuthDomain,
+        firebaseAuthEmulatorUrl,
+        firebaseMeasurementId,
+        firebaseMessagingSenderId,
         firebaseProjectId,
+        firebaseStorageBucket,
+        firebaseUseAuthEmulator: firebaseUseAuthEmulator === 'true',
       },
     },
   }
@@ -56,6 +73,7 @@ const nuxtConfig: NuxtConfig = {
         }
       })
     },
+    '@pinia/nuxt',
   ],
   nitro: {
     firebase: {
