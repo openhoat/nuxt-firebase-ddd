@@ -3,10 +3,12 @@
     "@mdi/font": "7.4.47",
     "@nuxt/kit": "3.14.159",
     "@nuxtjs/robots": "5.0.0",
+    "@pinia/nuxt": "0.7.0",
     "firebase": "11.0.1",
     "firebase-admin": "12.7.0",
     "h3": "1.13.0",
     "nuxt": "3.14.159",
+    "pinia": "2.2.6",
     "vue": "3.5.12",
     "vue-router": "4.4.5",
     "wireit": "0.14.9"
@@ -250,10 +252,10 @@
       "dependencies": ["deploy:staging"]
     },
     "deploy:ci:prod": {
-      "command": "firebase -P prod deploy --only firestore,functions,hosting"
+      "command": "firebase -P prod deploy --only auth,firestore,functions,hosting"
     },
     "deploy:ci:staging": {
-      "command": "firebase -P staging deploy --only firestore,functions,hosting"
+      "command": "firebase -P staging deploy --only auth,firestore,functions,hosting"
     },
     "deploy:prod": {
       "command": "pnpm run deploy:ci:prod",
@@ -295,7 +297,7 @@
       "service": true
     },
     "start:emulators": {
-      "command": "firebase emulators:start --only firestore,functions,hosting",
+      "command": "firebase emulators:start --only auth,firestore,functions,hosting",
       "dependencies": ["build:firebase"],
       "env": {
         "NODE_ENV": "production"
