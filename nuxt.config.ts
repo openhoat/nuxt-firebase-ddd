@@ -1,5 +1,6 @@
 import { inspect } from 'node:util'
 import type { NuxtConfig } from '@nuxt/schema'
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import type { AppConfig } from '~/types'
 
 const buildConfig = () => {
@@ -31,7 +32,16 @@ const nuxtConfig: NuxtConfig = {
   debug,
   devtools: { enabled: true },
   logLevel: 'info',
-  modules: ['@nuxtjs/robots'],
+  modules: [
+    (_options, nuxt) => {
+      nuxt.hooks.hook('vite:extendConfig', (config) => {
+        if (config.plugins) {
+          config.plugins.push(vuetify({ autoImport: true }))
+        }
+      })
+    },
+    '@nuxtjs/robots',
+  ],
   nitro: {
     firebase: {
       gen: 2,
@@ -45,6 +55,13 @@ const nuxtConfig: NuxtConfig = {
     },
   },
   srcDir: 'src',
+  vite: {
+    vue: {
+      template: {
+        transformAssetUrls,
+      },
+    },
+  },
 }
 
 export default defineNuxtConfig(nuxtConfig)
