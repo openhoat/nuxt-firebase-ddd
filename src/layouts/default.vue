@@ -17,6 +17,8 @@ const switchDrawer = () => {
           <v-list-item to="/" title="Home"></v-list-item>
           <v-list-subheader title="demos" />
           <v-list-item to="/demos/hello" title="Hello"></v-list-item>
+          <v-list-item to="/demos/counter" title="Counter"></v-list-item>
+          <v-list-item to="/demos/login" title="Login"></v-list-item>
         </v-list>
       </v-navigation-drawer>
     </client-only>
