@@ -15,13 +15,18 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@estruyf/github-actions-reporter": "1.9.2",
+    "@nuxt/test-utils": "3.14.4",
+    "@playwright/test": "1.49.0",
     "@types/node": "22.9.0",
     "cpx": "1.5.0",
     "cross-env": "7.0.3",
+    "dotenv": "16.4.5",
     "firebase-admin": "12.7.0",
     "firebase-functions": "6.1.0",
     "firebase-tools": "13.25.0",
     "husky": "9.1.7",
+    "playwright": "1.49.0",
     "prettier": "3.3.3",
     "rimraf": "6.0.1",
     "typescript": "5.6.3",
@@ -73,7 +78,14 @@
     "start": "wireit",
     "start:emulators": "wireit",
     "start:emulators:webonly": "wireit",
-    "prepare": "husky"
+    "playwright:install": "pnpm exec playwright install",
+    "prepare": "husky",
+    "test:e2e": "pnpm exec playwright test",
+    "test:e2e:prod": "dotenv -f .env.prod pnpm exec playwright test",
+    "test:e2e:show-report": "pnpm exec playwright show-report dist/test-e2e-html-report",
+    "test:e2e:staging": "dotenv -f .env.staging pnpm exec playwright test",
+    "test:e2e:studio": "wireit",
+    "test:e2e:ui": "pnpm exec playwright test --ui"
   },
   "type": "module",
   "version": "0.0.1",
@@ -280,6 +292,11 @@
           "lineMatches": "All emulators ready"
         }
       }
+    },
+    "test:e2e:studio": {
+      "command": "pnpm exec playwright open http://localhost:3000/",
+      "dependencies": ["dev"],
+      "service": true
     }
   }
 }
