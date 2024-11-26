@@ -7,7 +7,15 @@ export type AppRuntimeConfig = {
 }
 
 export type AppPublicRuntimeConfig = {
+  firebaseApiKey: string
+  firebaseAppId: string
+  firebaseAuthDomain: string
+  firebaseAuthEmulatorUrl: string
+  firebaseMeasurementId: string
+  firebaseMessagingSenderId: string
   firebaseProjectId?: string
+  firebaseStorageBucket: string
+  firebaseUseAuthEmulator: boolean
 }
 
 export type AppConfig = {
