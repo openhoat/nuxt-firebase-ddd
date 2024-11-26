@@ -9,11 +9,22 @@ const buildConfig = () => {
     NUXT_DEBUG: debug = 'false',
     NUXT_FIREBASE_CLOUD_REGION: region = 'europe-west9',
     NUXT_FIREBASE_CLOUD_MAX_INSTANCES: maxInstances = '3',
+    NUXT_FIREBASE_PROJECT_ID: firebaseProjectId,
+    NUXT_FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL:
+      firebaseServiceAccountClientEmail,
+    NUXT_FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY: firebaseServiceAccountPrivateKey,
   } = process.env
   const config: AppConfig = {
     debug: debug === 'true',
     maxInstances: Number(maxInstances),
     region,
+    runtimeConfig: {
+      firebaseServiceAccountClientEmail,
+      firebaseServiceAccountPrivateKey,
+      public: {
+        firebaseProjectId,
+      },
+    },
   }
   if (config.debug) {
     console.info('Loaded config:', inspect(config, { sorted: true }))
@@ -22,7 +33,7 @@ const buildConfig = () => {
 }
 
 const config = buildConfig()
-const { debug, maxInstances, region } = config
+const { debug, maxInstances, region, runtimeConfig } = config
 
 const nuxtConfig: NuxtConfig = {
   build: {
@@ -54,6 +65,7 @@ const nuxtConfig: NuxtConfig = {
       dir: 'dist/nuxt',
     },
   },
+  runtimeConfig,
   srcDir: 'src',
   vite: {
     vue: {
