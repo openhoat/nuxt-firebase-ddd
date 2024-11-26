@@ -10,6 +10,8 @@ const fetchCounter = async () => {
 <template>
   <v-card-text>
     <v-btn @click="fetchCounter()">Counter</v-btn>
-    <v-card-text :v-if="count !== undefined">{{ count }}</v-card-text>
+    <v-card-text data-testid="counterValue" :v-if="count !== undefined">{{
+      count
+    }}</v-card-text>
   </v-card-text>
 </template>
