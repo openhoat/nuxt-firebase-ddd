@@ -1,7 +1,8 @@
 <template>
   <PageHead subtitle="Hello Demo" />
-  <div>
-    <div>Hello demo</div>
+  <v-card>
+    <v-card-title>Hello demo</v-card-title>
     <Hello />
-  </div>
+  </v-card>
 </template>
+<script setup lang="ts"></script>
