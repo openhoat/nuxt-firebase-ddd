@@ -7,8 +7,8 @@ const hello = () => {
 </script>
 
 <template>
-  <div>
-    <Button @click="hello()">Hello</Button>
-    <div :v-if="text">{{ text }}</div>
-  </div>
+  <v-container>
+    <v-btn @click="hello()">Hello</v-btn>
+    <v-card-text :v-if="text">{{ text }}</v-card-text>
+  </v-container>
 </template>
