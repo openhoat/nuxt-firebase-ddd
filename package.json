@@ -21,9 +21,11 @@
     "husky": "9.1.7",
     "prettier": "3.4.2",
     "rimraf": "6.0.1",
+    "sass-embedded": "1.82.0",
     "typescript": "5.6.3",
     "vite-plugin-vuetify": "2.0.4",
-    "vue-tsc": "2.1.10"
+    "vue-tsc": "2.1.10",
+    "vuetify": "3.7.5"
   },
   "description": "Demo project about nuxt and firebase functions",
   "engines": {
