@@ -4,8 +4,8 @@ import PageHead from '~/components/PageHead.vue'
 
 <template>
   <PageHead subtitle="Hello Demo" />
-  <div>
-    <div>Hello demo</div>
+  <v-card>
+    <v-card-title>Hello demo</v-card-title>
     <Hello />
-  </div>
+  </v-card>
 </template>
