@@ -1,4 +1,5 @@
 import type { FirebaseApp } from '@firebase/app'
+import type { Auth } from '@firebase/auth'
 import type { Firestore } from 'firebase-admin/firestore'
 
 export type AppRuntimeConfig = {
@@ -7,7 +8,15 @@ export type AppRuntimeConfig = {
 }
 
 export type AppPublicRuntimeConfig = {
+  firebaseApiKey: string
+  firebaseAppId: string
+  firebaseAuthDomain: string
+  firebaseAuthEmulatorUrl: string
+  firebaseMeasurementId: string
+  firebaseMessagingSenderId: string
   firebaseProjectId?: string
+  firebaseStorageBucket: string
+  firebaseUseAuthEmulator: boolean
 }
 
 export type AppConfig = {
@@ -16,6 +25,12 @@ export type AppConfig = {
   region: string
   runtimeConfig: AppRuntimeConfig & {
     public: AppPublicRuntimeConfig
+  }
+}
+
+declare module '#app' {
+  interface NuxtApp {
+    $firebaseAuth?: Auth
   }
 }
 
