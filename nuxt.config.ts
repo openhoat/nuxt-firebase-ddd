@@ -10,13 +10,22 @@ const rootDir = fileURLToPath(new URL('.', import.meta.url))
 const buildConfig = () => {
   console.info('Loading config…')
   const {
+    NUXT_FIREBASE_API_KEY: firebaseApiKey = '',
+    NUXT_FIREBASE_APP_ID: firebaseAppId = '',
+    NUXT_FIREBASE_AUTH_DOMAIN: firebaseAuthDomain = '',
+    NUXT_FIREBASE_AUTH_EMULATOR_URL:
+      firebaseAuthEmulatorUrl = 'http://localhost:9099',
     NUXT_DEBUG: debug = 'false',
     NUXT_FIREBASE_CLOUD_REGION: region = 'europe-west9',
     NUXT_FIREBASE_CLOUD_MAX_INSTANCES: maxInstances = '3',
-    NUXT_FIREBASE_PROJECT_ID: firebaseProjectId,
+    NUXT_FIREBASE_MEASUREMENT_ID: firebaseMeasurementId = '',
+    NUXT_FIREBASE_MESSAGING_SENDER_ID: firebaseMessagingSenderId = '',
+    NUXT_FIREBASE_PROJECT_ID: firebaseProjectId = '',
     NUXT_FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL:
       firebaseServiceAccountClientEmail,
     NUXT_FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY: firebaseServiceAccountPrivateKey,
+    NUXT_FIREBASE_STORAGE_BUCKET: firebaseStorageBucket = '',
+    NUXT_FIREBASE_USE_AUTH_EMULATOR: firebaseUseAuthEmulator = 'false',
   } = process.env
   const config: AppConfig = {
     debug: debug === 'true',
@@ -26,7 +35,15 @@ const buildConfig = () => {
       firebaseServiceAccountClientEmail,
       firebaseServiceAccountPrivateKey,
       public: {
+        firebaseApiKey,
+        firebaseAppId,
+        firebaseAuthDomain,
+        firebaseAuthEmulatorUrl,
+        firebaseMeasurementId,
+        firebaseMessagingSenderId,
         firebaseProjectId,
+        firebaseStorageBucket,
+        firebaseUseAuthEmulator: firebaseUseAuthEmulator === 'true',
       },
     },
   }
@@ -51,6 +68,9 @@ const nuxtConfig: NuxtConfig = {
   ],
   debug,
   devtools: { enabled: true },
+  imports: {
+    dirs: ['stores'],
+  },
   logLevel: 'info',
   modules: [
     (_options, nuxt) => {
@@ -61,6 +81,7 @@ const nuxtConfig: NuxtConfig = {
       })
     },
     '@nuxtjs/robots',
+    '@pinia/nuxt',
   ],
   nitro: {
     firebase: {
@@ -73,6 +94,10 @@ const nuxtConfig: NuxtConfig = {
     output: {
       dir: join(rootDir, 'dist/nuxt'),
     },
+  },
+  routeRules: {
+    '/demos/counter': { ssr: false },
+    '/demos/login': { ssr: false },
   },
   runtimeConfig,
   srcDir: 'src',
