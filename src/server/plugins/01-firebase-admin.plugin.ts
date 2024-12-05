@@ -6,19 +6,16 @@ import {
   initializeApp,
 } from 'firebase-admin/app'
 import { getFirestore } from 'firebase-admin/firestore'
-import type { AppConfig } from '~/types'
 
-const initFirebaseInstance = (
-  config: AppConfig['runtimeConfig'],
-): FirebaseApp => {
+const initFirebaseInstance = (config: {
+  clientEmail?: string
+  privateKey?: string
+  projectId?: string
+}): FirebaseApp => {
   if (getApps().length) {
     return getApp()
   }
-  const {
-    firebaseServiceAccountClientEmail: clientEmail,
-    firebaseServiceAccountPrivateKey: privateKey,
-  } = config
-  const { firebaseProjectId: projectId } = config.public
+  const { clientEmail, privateKey, projectId } = config
   const firebaseConfig =
     clientEmail !== undefined &&
     privateKey !== undefined &&
@@ -36,7 +33,16 @@ const initFirebaseInstance = (
 }
 
 export default defineNitroPlugin((nitro) => {
-  const firebaseApp = initFirebaseInstance(useRuntimeConfig())
+  const {
+    firebaseServiceAccountClientEmail: clientEmail,
+    firebaseServiceAccountPrivateKey: privateKey,
+    public: { firebaseProjectId: projectId },
+  } = useRuntimeConfig()
+  const firebaseApp = initFirebaseInstance({
+    clientEmail,
+    privateKey,
+    projectId,
+  })
   const firestore = getFirestore(firebaseApp)
   nitro.hooks.hook('request', (event) => {
     event.context.firebase = { firebaseApp, firestore }
