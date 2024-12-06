@@ -16,14 +16,34 @@ jobs:
       firebase_env: staging
     secrets:
       git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
+  test-e2e:
+    name: Staging e2e tests
+    needs:
+      - build
+    uses: ./.github/workflows/test-e2e.yml
+    with:
+      firebase_env: staging
+    secrets:
+      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
   deploy:
     name: Staging deploy
     needs:
       - check
       - build
+      - test-e2e
     uses: ./.github/workflows/deploy.yml
     with:
       firebase_env: staging
     secrets:
       git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
       firebase_service_account: '${{ secrets.STAGING_FIREBASE_SERVICE_ACCOUNT }}'
+  test-e2e-live:
+    name: Staging live test
+    needs:
+      - deploy
+    uses: ./.github/workflows/test-e2e.yml
+    with:
+      firebase_env: staging
+      base_url: https://headwood-1cdfb.web.app/
+    secrets:
+      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
