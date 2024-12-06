@@ -1,4 +1,4 @@
-import { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { inspect } from 'node:util'
 import type { NuxtConfig } from '@nuxt/schema'
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
@@ -78,6 +78,7 @@ const nuxtConfig: NuxtConfig = {
     },
     '@nuxtjs/robots',
     '@pinia/nuxt',
+    '@nuxt/test-utils/module',
   ],
   nitro: {
     firebase: {
@@ -88,7 +89,7 @@ const nuxtConfig: NuxtConfig = {
       },
     },
     output: {
-      dir: resolve(__dirname, 'dist/nuxt'),
+      dir: fileURLToPath(new URL('dist/nuxt', import.meta.url)),
     },
   },
   routeRules: {
