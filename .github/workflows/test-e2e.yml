@@ -1,11 +1,15 @@
 on:
   workflow_call:
+    inputs:
+      firebase_env:
+        type: string
+        required: true
     secrets:
       git_crypt_key:
         required: true
 
 jobs:
-  check:
+  test-e2e:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout git project
@@ -16,5 +20,9 @@ jobs:
           GIT_CRYPT_KEY: ${{ secrets.git_crypt_key }}
       - name: Install PNPM and dependencies
         uses: ./.github/actions/pnpm-install
-      - name: Check project quality
-        run: pnpm run check:all
+      - name: Install playwright
+        run: pnpm run playwright:install:ci
+      - name: Run e2e tests
+        run: pnpm run test:e2e
+        env:
+          PLAYWRIGHT_ENV: ${{ inputs.firebase_env }}
