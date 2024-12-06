@@ -1,0 +1,36 @@
+on:
+  workflow_call:
+    inputs:
+      firebase_env:
+        type: string
+        required: true
+      base_url:
+        type: string
+        required: false
+    secrets:
+      git_crypt_key:
+        required: true
+
+jobs:
+  test-e2e:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout git project
+        uses: actions/checkout@v4
+      - name: Unlock git crypt
+        uses: sliteteam/github-action-git-crypt-unlock@1.3.0
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.git_crypt_key }}
+      - name: Install PNPM and dependencies
+        uses: ./.github/actions/pnpm-install
+      - name: Install playwright
+        run: pnpm run playwright:install:ci
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: 'build'
+      - name: Run e2e tests
+        run: pnpm run test:e2e
+        env:
+          PLAYWRIGHT_ENV: ${{ inputs.firebase_env }}
+          PLAYWRIGHT_BASE_URL: ${{ inputs.base_url }}

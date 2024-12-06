@@ -10,7 +10,7 @@ const switchDrawer = () => {
 <template>
   <v-layout class="rounded rounded-md">
     <v-app-bar>
-      <v-app-bar-nav-icon @click="switchDrawer()"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon data-testid="navigation-drawer" @click="switchDrawer()"></v-app-bar-nav-icon>
       <v-app-bar-title> Application </v-app-bar-title>
     </v-app-bar>
     <client-only>
