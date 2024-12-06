@@ -13,7 +13,7 @@ const hello = async () => {
 
 <template>
   <v-container>
-    <v-btn @click="hello()">Hello</v-btn>
-    <v-card-text :v-if="text !== undefined">{{ text }}</v-card-text>
+    <v-btn data-testid="helloButton" @click="hello()">Hello</v-btn>
+    <v-card-text data-testid="helloText" :v-if="text !== undefined">{{ text }}</v-card-text>
   </v-container>
 </template>
