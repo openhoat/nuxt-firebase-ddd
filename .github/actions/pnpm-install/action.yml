@@ -30,8 +30,8 @@ runs:
     #- name: Prune pnpm store
     #  shell: bash
     #  run: pnpm prune store
-    - name: Setup Wireit cache
-      uses: google/wireit@setup-github-actions-caching/v2
+#    - name: Setup Wireit cache
+#      uses: google/wireit@setup-github-actions-caching/v2
     - name: Install dependencies
       shell: bash
       run: pnpm --frozen-lockfile --prefer-offline install
