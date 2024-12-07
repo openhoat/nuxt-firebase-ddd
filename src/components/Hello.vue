@@ -5,7 +5,7 @@ const hello = async () => {
     text.value = undefined
     return
   }
-  const helloData = await $fetch<{ hello: string }>('/api/hello')
+  const helloData: { hello: string } = await $fetch('/api/hello')
   console.log('helloData:', helloData)
   text.value = helloData.hello
 }

@@ -57,6 +57,7 @@ const nuxtConfig: NuxtConfig = {
   build: {
     transpile: ['vuetify'],
   },
+  buildDir: fileURLToPath(new URL('nuxt-build', import.meta.url)),
   compatibilityDate: '2024-04-03',
   css: [
     'vuetify/lib/styles/main.sass',

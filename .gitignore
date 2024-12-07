@@ -2,11 +2,11 @@
 /.firebase/
 /.idea/
 /.npm/
-/.nuxt/
 /.wireit/
 /.vscode/
 /dist/
 /node_modules/
+/nuxt-build/
 /tmp/
 
 /.envrc

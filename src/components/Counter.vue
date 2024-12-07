@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const count = ref<number>()
 const fetchCounter = async () => {
-  const counterData = await $fetch<{ value: number }>('/api/counter')
+  const counterData: { value: number } = await $fetch('/api/counter')
   console.log('counterData:', counterData)
   count.value = counterData.value
 }

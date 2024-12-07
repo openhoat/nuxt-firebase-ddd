@@ -24,14 +24,8 @@ runs:
         key: ${{ runner.os }}-pnpm-store-${{ env.YEAR_MONTH }}-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
           ${{ runner.os }}-pnpm-store-${{ env.YEAR_MONTH }}-
-    # Prevent store to grow over time (not needed with yarn)
-    # Note: not perfect as it prune too much in monorepos so the idea
-    #       is to use cache-rotation as above. In the future this might work better.
-    #- name: Prune pnpm store
-    #  shell: bash
-    #  run: pnpm prune store
-#    - name: Setup Wireit cache
-#      uses: google/wireit@setup-github-actions-caching/v2
+    - name: Setup Wireit cache
+      uses: google/wireit@setup-github-actions-caching/v2
     - name: Install dependencies
       shell: bash
       run: pnpm --frozen-lockfile --prefer-offline install

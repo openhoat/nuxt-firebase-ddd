@@ -16,5 +16,5 @@
     "target": "ESNext",
     "types": ["node"]
   },
-  "extends": "./.nuxt/tsconfig.json"
+  "extends": "./nuxt-build/tsconfig.json"
 }

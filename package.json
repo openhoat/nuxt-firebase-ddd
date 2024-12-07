@@ -64,6 +64,7 @@
     "clean:all": "wireit",
     "clean:npm": "wireit",
     "clean:nuxt": "wireit",
+    "clean:ts": "wireit",
     "clean:wireit": "rimraf '.wireit/'",
     "deploy": "wireit",
     "deploy:ci:prod": "wireit",
@@ -124,7 +125,7 @@
         "tsconfig.json"
       ],
       "output": [
-        ".nuxt/**",
+        "nuxt-build/**",
         "dist/nuxt/nitro.json",
         "dist/nuxt/public/**",
         "dist/nuxt/server/**"
@@ -169,7 +170,7 @@
         "tsconfig.json"
       ],
       "output": [
-        ".nuxt/**",
+        "nuxt-build/**",
         "dist/nuxt/nitro.json",
         "dist/nuxt/public/**",
         "dist/nuxt/server/**"
@@ -188,7 +189,7 @@
         "pnpm-lock.yaml",
         "tsconfig.json"
       ],
-      "output": [".nuxt/**"]
+      "output": ["nuxt-build/**"]
     },
     "check:all": {
       "dependencies": ["check", "check:types"]
@@ -209,7 +210,7 @@
       "output": []
     },
     "clean": {
-      "dependencies": ["clean:nuxt", "clean:dist", "clean:ts"]
+      "dependencies": ["clean:dist", "clean:ts"]
     },
     "clean:all": {
       "dependencies": ["clean", "clean:npm", "clean:wireit"]
@@ -225,7 +226,7 @@
       "command": "rimraf .npm"
     },
     "clean:nuxt": {
-      "command": "rimraf .nuxt"
+      "command": "rimraf nuxt-build"
     },
     "clean:ts": {
       "command": "rimraf tsconfig.tsbuildinfo"
@@ -284,7 +285,7 @@
         "pnpm-lock.yaml",
         "tsconfig.json"
       ],
-      "output": [".nuxt/**", "dist/nuxt/nitro.json", "dist/nuxt/public/**"]
+      "output": ["nuxt-build/**", "dist/nuxt/nitro.json", "dist/nuxt/public/**"]
     },
     "git-crypt:unlock": {
       "command": "git-crypt unlock .git-crypt-key",
