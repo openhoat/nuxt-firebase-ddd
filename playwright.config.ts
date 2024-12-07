@@ -17,7 +17,7 @@ const { PLAYWRIGHT_BASE_URL, PLAYWRIGHT_ENV } = process.env
 if (PLAYWRIGHT_ENV) {
   config({ path: `.env.${PLAYWRIGHT_ENV}` })
 }
-const baseURL = PLAYWRIGHT_BASE_URL
+const baseURL = PLAYWRIGHT_BASE_URL /*?? 'http://localhost:3000'*/
 const projects = [
   {
     name: 'chromium',
@@ -52,6 +52,7 @@ export default defineConfig<ConfigOptions>({
     baseURL,
     nuxt: {
       build: false,
+      // host: baseURL,
       nuxtConfig: {
         nitro: {
           output: {
@@ -60,8 +61,14 @@ export default defineConfig<ConfigOptions>({
         },
       },
       rootDir: fileURLToPath(new URL('.', import.meta.url)),
+      // server: false,
     },
     trace: 'on-first-retry',
   },
+  // webServer: {
+  //   command: 'pnpm run start',
+  //   url: baseURL,
+  //   reuseExistingServer: false,
+  // },
   workers,
 })
