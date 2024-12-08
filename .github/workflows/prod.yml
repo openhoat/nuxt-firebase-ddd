@@ -7,19 +7,19 @@ on:
 
 jobs:
   check:
-    name: Check
+    name: Prod check
     uses: ./.github/workflows/check.yml
     secrets:
       git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
   build:
-    name: Build for prod
+    name: Prod build
     uses: ./.github/workflows/build.yml
     with:
       firebase_env: prod
     secrets:
       git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
   deploy:
-    name: Deploy to prod
+    name: Prod deploy
     needs:
       - check
       - build
