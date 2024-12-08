@@ -52,7 +52,7 @@ export default defineConfig<ConfigOptions>({
     baseURL,
     nuxt: {
       build: false,
-      // host: baseURL,
+      host: baseURL,
       nuxtConfig: {
         nitro: {
           output: {
@@ -61,14 +61,8 @@ export default defineConfig<ConfigOptions>({
         },
       },
       rootDir: fileURLToPath(new URL('.', import.meta.url)),
-      // server: false,
     },
     trace: 'on-first-retry',
   },
-  // webServer: {
-  //   command: 'pnpm run start',
-  //   url: baseURL,
-  //   reuseExistingServer: false,
-  // },
   workers,
 })
