@@ -17,7 +17,8 @@ const { PLAYWRIGHT_BASE_URL, PLAYWRIGHT_ENV } = process.env
 if (PLAYWRIGHT_ENV) {
   config({ path: `.env.${PLAYWRIGHT_ENV}` })
 }
-const baseURL = PLAYWRIGHT_BASE_URL /*?? 'http://localhost:3000'*/
+const startLocalServer = isCI && !PLAYWRIGHT_BASE_URL
+const baseURL = PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000'
 const projects = [
   {
     name: 'chromium',
@@ -36,13 +37,22 @@ const reporter: PlaywrightTestConfig['reporter'] = isCI
         },
       ],
     ]
-  : [['html', { outputFolder: './dist/test/e2e/results/html-report' }]]
+  : [['html', { outputFolder: './dist/test/e2e/html-report' }]]
 const retries = isCI ? 2 : 0
 const workers = isCI ? 1 : undefined
 
+console.log('baseURL')
+const webServer = startLocalServer
+  ? {
+      command: 'pnpm start',
+      url: baseURL,
+      reuseExistingServer: false,
+    }
+  : undefined
+
 export default defineConfig<ConfigOptions>({
   forbidOnly: isCI,
-  outputDir: './dist/test-e2e/results',
+  outputDir: './dist/test/e2e/results',
   projects,
   reporter,
   respectGitIgnore: true,
@@ -61,8 +71,10 @@ export default defineConfig<ConfigOptions>({
         },
       },
       rootDir: fileURLToPath(new URL('.', import.meta.url)),
+      server: startLocalServer,
     },
     trace: 'on-first-retry',
   },
+  webServer,
   workers,
 })
