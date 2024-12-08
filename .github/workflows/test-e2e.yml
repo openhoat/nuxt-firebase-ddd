@@ -4,13 +4,16 @@ on:
       firebase_env:
         type: string
         required: true
+      base_url:
+        type: string
+        required: false
     secrets:
       git_crypt_key:
         required: true
 
 jobs:
   test-e2e:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout git project
         uses: actions/checkout@v4
@@ -30,3 +33,4 @@ jobs:
         run: pnpm run test:e2e
         env:
           PLAYWRIGHT_ENV: ${{ inputs.firebase_env }}
+          PLAYWRIGHT_BASE_URL: ${{ inputs.base_url }}

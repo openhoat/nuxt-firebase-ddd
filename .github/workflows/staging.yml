@@ -43,3 +43,13 @@ jobs:
     secrets:
       git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
       firebase_service_account: '${{ secrets.STAGING_FIREBASE_SERVICE_ACCOUNT }}'
+  test-e2e-live:
+    name: Test e2e for live staging
+    needs:
+      - deploy
+    uses: ./.github/workflows/test-e2e.yml
+    with:
+      firebase_env: staging
+      base_url: https://headwood-1cdfb.web.app/
+    secrets:
+      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
