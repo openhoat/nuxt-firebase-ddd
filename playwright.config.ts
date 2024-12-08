@@ -33,7 +33,9 @@ const buildPwConfig = (): PlaywrightTestConfig<ConfigOptions> => {
         [
           '@estruyf/github-actions-reporter',
           <GitHubActionOptions>{
-            title: 'Demo sandbox e2e tests report',
+            title: startLocalServer
+              ? 'E2e tests report'
+              : 'Live e2e tests report',
             useDetails: true,
             showError: true,
           },

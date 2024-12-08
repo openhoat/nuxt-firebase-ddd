@@ -22,4 +22,4 @@ jobs:
         with:
           json-final-path: dist/test/unit/coverage-report/coverage-final.json
           json-summary-path: dist/test/unit/coverage-report/coverage-summary.json
-          name: Demo sandbox unit tests
+          name: Unit tests
