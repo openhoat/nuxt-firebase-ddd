@@ -30,7 +30,14 @@
   },
   "linter": {
     "enabled": true,
-    "rules": { "recommended": true }
+    "rules": {
+      "recommended": true,
+      "complexity": {
+        "noExcessiveNestedTestSuites": {
+          "level": "off"
+        }
+      }
+    }
   },
   "organizeImports": { "enabled": true },
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true }
