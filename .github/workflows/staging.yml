@@ -25,11 +25,17 @@ jobs:
       firebase_env: staging
     secrets:
       git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
+  test-unit:
+    name: Staging unit tests
+    uses: ./.github/workflows/test-unit.yml
+    secrets:
+      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
   deploy:
     name: Staging deploy
     needs:
       - check
       - build
+      - test-unit
       - test-e2e
     uses: ./.github/workflows/deploy.yml
     with:
