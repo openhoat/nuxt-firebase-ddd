@@ -7,11 +7,14 @@ const switchDrawer = () => {
   drawer.value = !drawer.value
 }
 </script>
-
+ 
 <template>
   <v-layout class="rounded rounded-md">
     <v-app-bar>
-      <v-app-bar-nav-icon data-testid="navigation-drawer" @click="switchDrawer()"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        data-testid="navigation-drawer"
+        @click="switchDrawer()"
+      ></v-app-bar-nav-icon>
       <v-app-bar-title> Application </v-app-bar-title>
     </v-app-bar>
     <client-only>
@@ -21,6 +24,7 @@ const switchDrawer = () => {
           <v-list-subheader title="demos" />
           <v-list-item to="/demos/hello" title="Hello"></v-list-item>
           <v-list-item to="/demos/counter" title="Counter"></v-list-item>
+          <v-list-item to="/demos/todos" title="Todos"></v-list-item>
           <v-list-item to="/demos/login" title="Login"></v-list-item>
         </v-list>
       </v-navigation-drawer>
