@@ -2,9 +2,14 @@
 import { ref } from 'vue'
 
 const text = ref<string>()
-const hello = () => {
-  console.log('hello!')
-  text.value = text.value ? undefined : 'world!'
+const hello = async () => {
+  if (text.value !== undefined) {
+    text.value = undefined
+    return
+  }
+  const helloData: { hello: string } = await $fetch('/api/hello')
+  console.log('helloData:', helloData)
+  text.value = helloData.hello
 }
 </script>
 
