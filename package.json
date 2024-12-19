@@ -209,10 +209,10 @@
       "dependencies": ["deploy:staging"]
     },
     "deploy:ci:prod": {
-      "command": "firebase -P prod deploy --only functions,hosting"
+      "command": "firebase -P prod deploy --only firestore,functions,hosting"
     },
     "deploy:ci:staging": {
-      "command": "firebase -P staging deploy --only functions,hosting"
+      "command": "firebase -P staging deploy --only firestore,functions,hosting"
     },
     "deploy:prod": {
       "command": "pnpm run deploy:ci:prod",
@@ -271,7 +271,7 @@
       "service": true
     },
     "start:emulators": {
-      "command": "firebase emulators:start --only functions,hosting",
+      "command": "firebase emulators:start --only firestore,functions,hosting",
       "dependencies": ["build:firebase:local"],
       "env": {
         "NODE_ENV": "production"
