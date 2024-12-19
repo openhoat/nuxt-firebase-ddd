@@ -5,7 +5,12 @@ import type { NuxtConfig } from '@nuxt/schema'
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import type { AppConfig } from '~/types'
 
+const domains = ['hello']
+
 const rootDir = fileURLToPath(new URL('.', import.meta.url))
+
+const domainRootDirs = domains.map((domain) => `src/domains/${domain}`)
+const watch = domains.map((domain) => `domains/${domain}/nuxt.config.ts`)
 
 const buildConfig = () => {
   console.info('Loading config…')
@@ -40,6 +45,7 @@ const nuxtConfig: NuxtConfig = {
   ],
   debug,
   devtools: { enabled: true },
+  extends: domainRootDirs,
   logLevel: 'info',
   modules: [
     (_options, nuxt) => {
@@ -82,6 +88,7 @@ const nuxtConfig: NuxtConfig = {
       },
     },
   },
+  watch,
 }
 
 export default defineNuxtConfig(nuxtConfig)
