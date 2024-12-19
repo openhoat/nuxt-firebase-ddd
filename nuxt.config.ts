@@ -5,7 +5,12 @@ import type { NuxtConfig } from '@nuxt/schema'
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import type { AppConfig } from '~/types'
 
+const domains = ['hello']
+
 const rootDir = fileURLToPath(new URL('.', import.meta.url))
+
+const domainRootDirs = domains.map((domain) => `src/domains/${domain}`)
+const watch = domains.map((domain) => `domains/${domain}/nuxt.config.ts`)
 
 const buildConfig = () => {
   console.info('Loading config…')
@@ -29,6 +34,9 @@ const config = buildConfig()
 const { debug, maxInstances, region } = config
 
 const nuxtConfig: NuxtConfig = {
+  appConfig: {
+    features: {},
+  },
   build: {
     transpile: ['vuetify'],
   },
@@ -40,12 +48,14 @@ const nuxtConfig: NuxtConfig = {
   ],
   debug,
   devtools: { enabled: true },
+  extends: domainRootDirs,
   imports: { autoImport: false },
   logLevel: 'info',
   modules: [
     (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
         if (config.plugins) {
+          // @ts-ignore
           config.plugins.push(vuetify({ autoImport: true }))
         }
       })
@@ -83,6 +93,7 @@ const nuxtConfig: NuxtConfig = {
       },
     },
   },
+  watch,
 }
 
 export default defineNuxtConfig(nuxtConfig)
