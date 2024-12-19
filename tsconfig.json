@@ -16,5 +16,6 @@
     "target": "ESNext",
     "types": ["node"]
   },
+  "exclude": ["node_modules", "tmp"],
   "extends": "./nuxt-build/tsconfig.json"
 }
