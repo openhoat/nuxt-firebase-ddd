@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import Breadcrumbs from '~/components/Breadcrumbs.vue'
+import { buildNavItems } from '~/utils/nav-items'
 import { useState } from '#app'
 
 const drawer = useState('drawer', () => false)
@@ -11,7 +12,10 @@ const switchDrawer = () => {
 <template>
   <v-layout class="rounded rounded-md">
     <v-app-bar>
-      <v-app-bar-nav-icon @click="switchDrawer()"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        data-testid="navigation-drawer"
+        @click="switchDrawer()"
+      ></v-app-bar-nav-icon>
       <v-app-bar-title> Application </v-app-bar-title>
     </v-app-bar>
     <client-only>
@@ -19,7 +23,13 @@ const switchDrawer = () => {
         <v-list>
           <v-list-item to="/" title="Home"></v-list-item>
           <v-list-subheader title="demos" />
-          <v-list-item to="/demos/hello" title="Hello"></v-list-item>
+          <template v-for="{ condition, title, to } in buildNavItems()">
+            <v-list-item
+              v-if="condition === undefined || condition"
+              :title="title"
+              :to="to"
+            ></v-list-item>
+          </template>
         </v-list>
       </v-navigation-drawer>
     </client-only>
