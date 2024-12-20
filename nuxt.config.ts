@@ -90,6 +90,7 @@ const nuxtConfig: NuxtConfig = {
     },
     '@nuxtjs/robots',
     '@pinia/nuxt',
+    '@nuxt/test-utils/module',
   ],
   nitro: {
     firebase: {
