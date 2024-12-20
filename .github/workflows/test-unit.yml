@@ -1,0 +1,25 @@
+on:
+  workflow_call:
+    secrets:
+      git_crypt_key:
+        required: true
+
+jobs:
+  test-unit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unlock git crypt
+        uses: sliteteam/github-action-git-crypt-unlock@1.3.0
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.git_crypt_key }}
+      - uses: ./.github/actions/pnpm-install
+      - name: Test unit
+        run: pnpm run test:unit:cover
+      - name: Report unit coverage
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          json-final-path: dist/test/unit/coverage-report/coverage-final.json
+          json-summary-path: dist/test/unit/coverage-report/coverage-summary.json
+          name: Unit tests
