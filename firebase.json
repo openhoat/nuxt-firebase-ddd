@@ -30,6 +30,7 @@
         ".wireit",
         "node_modules",
         "public",
+        "test",
         "tsconfig.tsbuildinfo",
         "*.log"
       ],
@@ -40,7 +41,7 @@
   ],
   "hosting": {
     "cleanUrls": true,
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": ["firebase.json", "test/**", "**/.*", "**/node_modules/**"],
     "public": "dist/nuxt/public",
     "rewrites": [
       {
