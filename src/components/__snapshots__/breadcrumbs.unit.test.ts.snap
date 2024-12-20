@@ -1,0 +1,14 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Unit tests > components > Breadcrumbs > renders a breadcrumbs given a route 1`] = `
+"<ul class="v-breadcrumbs v-breadcrumbs--density-default">
+  <li class="v-breadcrumbs__prepend"><i class="mdi-home mdi v-icon notranslate v-theme--dark v-icon--size-default v-icon--start" aria-hidden="true"></i></li>
+  <li class="v-breadcrumbs-item"><a class="v-breadcrumbs-item--link">Home</a></li>
+  <li class="v-breadcrumbs-divider">/</li>
+  <li class="v-breadcrumbs-item"><a class="v-breadcrumbs-item--link">Foo</a></li>
+  <li class="v-breadcrumbs-divider">/</li>
+  <li class="v-breadcrumbs-item v-breadcrumbs-item--disabled"><a class="v-breadcrumbs-item--link">Bar</a></li>
+  <!---->
+  <!---->
+</ul>"
+`;
