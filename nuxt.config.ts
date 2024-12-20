@@ -79,6 +79,7 @@ const nuxtConfig: NuxtConfig = {
     (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
         if (config.plugins) {
+          // @ts-ignore
           config.plugins.push(vuetify({ autoImport: true }))
         }
       })
