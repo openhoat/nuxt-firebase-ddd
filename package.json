@@ -20,15 +20,22 @@
     "@nuxt/test-utils": "3.15.4",
     "@playwright/test": "1.50.0",
     "@types/node": "22.12.0",
+    "@vitest/coverage-v8": "3.0.4",
+    "@vitest/ui": "3.0.4",
+    "@vue/test-utils": "2.4.6",
     "firebase-functions": "6.3.0",
     "firebase-tools": "13.29.3",
+    "happy-dom": "16.8.1",
     "husky": "9.1.7",
+    "jsdom": "26.0.0",
     "playwright-core": "1.50.0",
     "rimraf": "6.0.1",
     "sass-embedded": "1.83.4",
+    "serve": "14.2.4",
     "std-env": "3.8.0",
     "typescript": "5.7.3",
     "vite-plugin-vuetify": "2.0.4",
+    "vitest": "3.0.4",
     "vue-tsc": "2.2.0",
     "vuetify": "3.7.9"
   },
@@ -80,6 +87,10 @@
     "test:e2e:show-report": "pnpm exec playwright show-report dist/test/e2e/html-report",
     "test:e2e:staging": "cross-env PLAYWRIGHT_BASE_URL=https://headwood-1cdfb.web.app/ pnpm run test:e2e",
     "test:e2e:ui": "pnpm exec playwright test --ui",
+    "test:unit": "wireit",
+    "test:unit:cover": "wireit",
+    "test:unit:cover:report": "serve -c ../../../../serve.json dist/test/unit/coverage-report",
+    "test:unit:report": "serve -c ../../../../serve.json dist/test/unit/report",
     "validate": "wireit"
   },
   "type": "module",
@@ -285,8 +296,41 @@
     "test:e2e:ci": {
       "command": "pnpm exec playwright test"
     },
+    "test:unit": {
+      "command": "vitest run",
+      "files": [
+        "src/**",
+        "test/unit/**",
+        ".env",
+        ".env.test",
+        "nuxt.config.ts",
+        "package.json",
+        "pnpm-lock.yaml",
+        "tsconfig.json",
+        "vitest.config.ts"
+      ],
+      "output": ["dist/test/unit/report/**"]
+    },
+    "test:unit:cover": {
+      "command": "vitest run --coverage",
+      "files": [
+        "src/**",
+        "test/unit/**",
+        ".env",
+        ".env.test",
+        "nuxt.config.ts",
+        "package.json",
+        "pnpm-lock.yaml",
+        "tsconfig.json",
+        "vitest.config.ts"
+      ],
+      "output": [
+        "dist/test/unit/report/**",
+        "dist/test/unit/coverage-report/**"
+      ]
+    },
     "validate": {
-      "dependencies": ["check:all", "test:e2e"]
+      "dependencies": ["check:all", "test:e2e", "test:unit"]
     }
   }
 }

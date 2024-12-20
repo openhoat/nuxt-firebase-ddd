@@ -1,0 +1,18 @@
+on:
+  workflow_call:
+
+jobs:
+  test-unit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/pnpm-install
+      - name: Test unit
+        run: pnpm run test:unit:cover
+      - name: Report unit coverage
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          json-final-path: dist/test/unit/coverage-report/coverage-final.json
+          json-summary-path: dist/test/unit/coverage-report/coverage-summary.json
+          name: Unit tests

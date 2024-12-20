@@ -30,11 +30,15 @@ jobs:
     uses: ./.github/workflows/test-e2e.yml
     with:
       firebase_env: staging
+  test-unit:
+    name: Staging unit tests
+    uses: ./.github/workflows/test-unit.yml
   deploy:
     name: Staging deploy
     needs:
       - check
       - build
+      - test-unit
       - test-e2e
     uses: ./.github/workflows/deploy.yml
     with:
