@@ -23,11 +23,19 @@ jobs:
     secrets:
       firebase_api_key: '${{ secrets.STAGING_FIREBASE_API_KEY }}'
       firebase_service_account: '${{ secrets.STAGING_FIREBASE_SERVICE_ACCOUNT }}'
+  test-e2e:
+    name: Staging e2e tests
+    needs:
+      - build
+    uses: ./.github/workflows/test-e2e.yml
+    with:
+      firebase_env: staging
   deploy:
     name: Staging deploy
     needs:
       - check
       - build
+      - test-e2e
     uses: ./.github/workflows/deploy.yml
     with:
       firebase_env: staging
