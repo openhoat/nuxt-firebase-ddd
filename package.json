@@ -16,15 +16,21 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@estruyf/github-actions-reporter": "1.9.2",
+    "@nuxt/test-utils": "3.15.1",
+    "@playwright/test": "1.49.1",
     "@types/node": "22.10.2",
     "cpx2": "8.0.0",
     "cross-env": "7.0.3",
+    "dotenv": "16.4.7",
     "firebase-functions": "6.2.0",
     "firebase-tools": "13.29.1",
     "husky": "9.1.7",
+    "playwright-core": "1.49.1",
     "prettier": "3.4.2",
     "rimraf": "6.0.1",
     "sass-embedded": "1.83.0",
+    "std-env": "3.8.0",
     "typescript": "5.7.2",
     "vite-plugin-vuetify": "2.0.4",
     "vue-tsc": "2.2.0",
@@ -75,7 +81,17 @@
     "postinstall": "pnpm run build:prepare",
     "start": "wireit",
     "start:emulators": "wireit",
-    "prepare": "husky"
+    "playwright:install": "pnpm exec playwright install chromium",
+    "playwright:install:ci": "pnpm run playwright:install --with-deps",
+    "prepare": "husky",
+    "test:e2e": "pnpm exec playwright test",
+    "test:e2e:prod": "cross-env PLAYWRIGHT_ENV=prod pnpm run test:e2e",
+    "test:e2e:show-report": "pnpm exec playwright show-report dist/test/e2e/html-report",
+    "test:e2e:staging": "cross-env PLAYWRIGHT_ENV=staging pnpm run test:e2e",
+    "test:e2e:staging:live": "cross-env PLAYWRIGHT_BASE_URL=https://headwood-1cdfb.web.app/ pnpm run test:e2e",
+    "test:e2e:studio": "wireit",
+    "test:e2e:ui": "pnpm exec playwright test --ui",
+    "validate": "wireit"
   },
   "type": "module",
   "version": "0.0.1",
@@ -295,6 +311,9 @@
           "lineMatches": "All emulators ready"
         }
       }
+    },
+    "validate": {
+      "dependencies": ["check:all", "test:e2e"]
     }
   }
 }
