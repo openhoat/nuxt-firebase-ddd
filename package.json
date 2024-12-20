@@ -81,7 +81,17 @@
     "postinstall": "pnpm run build:prepare",
     "start": "wireit",
     "start:emulators": "wireit",
-    "prepare": "husky"
+    "playwright:install": "pnpm exec playwright install chromium",
+    "playwright:install:ci": "pnpm run playwright:install --with-deps",
+    "prepare": "husky",
+    "test:e2e": "pnpm exec playwright test",
+    "test:e2e:prod": "cross-env PLAYWRIGHT_ENV=prod pnpm run test:e2e",
+    "test:e2e:show-report": "pnpm exec playwright show-report dist/test/e2e/html-report",
+    "test:e2e:staging": "cross-env PLAYWRIGHT_ENV=staging pnpm run test:e2e",
+    "test:e2e:staging:live": "cross-env PLAYWRIGHT_BASE_URL=https://headwood-1cdfb.web.app/ pnpm run test:e2e",
+    "test:e2e:studio": "wireit",
+    "test:e2e:ui": "pnpm exec playwright test --ui",
+    "validate": "wireit"
   },
   "type": "module",
   "version": "0.0.1",
@@ -301,6 +311,9 @@
           "lineMatches": "All emulators ready"
         }
       }
+    },
+    "validate": {
+      "dependencies": ["check:all", "test:e2e"]
     }
   }
 }
