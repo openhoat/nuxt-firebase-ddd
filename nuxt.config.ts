@@ -5,7 +5,7 @@ import type { NuxtConfig } from '@nuxt/schema'
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import type { AppConfig } from '~/types'
 
-const domains = ['hello', 'counter', 'user']
+const domains = ['hello', 'counter', 'user', 'task']
 
 const rootDir = fileURLToPath(new URL('.', import.meta.url))
 
