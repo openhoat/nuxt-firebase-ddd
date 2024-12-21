@@ -6,3 +6,5 @@ export const areNotEmpty = (...args: unknown[]) => {
   }
   return true
 }
+
+export const isNotNull = <T>(o: T | null): o is T => o !== null
