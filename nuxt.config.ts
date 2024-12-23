@@ -5,7 +5,12 @@ import type { NuxtConfig } from '@nuxt/schema'
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import type { AppConfig } from '~/types'
 
+const domains = ['hello', 'counter']
+
 const rootDir = fileURLToPath(new URL('.', import.meta.url))
+
+const domainRootDirs = domains.map((domain) => `src/domains/${domain}`)
+const watch = domains.map((domain) => `domains/${domain}/nuxt.config.ts`)
 
 const buildConfig = () => {
   console.info('Loading config…')
@@ -13,11 +18,22 @@ const buildConfig = () => {
     NUXT_DEBUG: debug = 'false',
     NUXT_FIREBASE_CLOUD_REGION: region = 'europe-west9',
     NUXT_FIREBASE_CLOUD_MAX_INSTANCES: maxInstances = '3',
+    NUXT_FIREBASE_PROJECT_ID: firebaseProjectId,
+    NUXT_FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL:
+      firebaseServiceAccountClientEmail,
+    NUXT_FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY: firebaseServiceAccountPrivateKey,
   } = process.env
   const config: AppConfig = {
     debug: debug === 'true',
     maxInstances: Number(maxInstances),
     region,
+    runtimeConfig: {
+      firebaseServiceAccountClientEmail,
+      firebaseServiceAccountPrivateKey,
+      public: {
+        firebaseProjectId,
+      },
+    },
   }
   if (config.debug) {
     console.info('Loaded config:', inspect(config, { sorted: true }))
@@ -26,7 +42,7 @@ const buildConfig = () => {
 }
 
 const config = buildConfig()
-const { debug, maxInstances, region } = config
+const { debug, maxInstances, region, runtimeConfig } = config
 
 const nuxtConfig: NuxtConfig = {
   build: {
@@ -40,6 +56,7 @@ const nuxtConfig: NuxtConfig = {
   ],
   debug,
   devtools: { enabled: true },
+  extends: domainRootDirs,
   logLevel: 'info',
   modules: [
     (_options, nuxt) => {
@@ -63,6 +80,7 @@ const nuxtConfig: NuxtConfig = {
       dir: join(rootDir, 'dist/nuxt'),
     },
   },
+  runtimeConfig,
   sourcemap: {
     server: true,
     client: true,
@@ -82,6 +100,7 @@ const nuxtConfig: NuxtConfig = {
       },
     },
   },
+  watch,
 }
 
 export default defineNuxtConfig(nuxtConfig)
