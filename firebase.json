@@ -1,6 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/firebase/firebase-tools/master/schema/firebase-config.json",
   "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "firestore": {
+      "port": 8080
+    },
     "functions": {
       "port": 5001
     },
@@ -12,6 +18,10 @@
       "enabled": true
     }
   },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
   "functions": [
     {
       "ignore": [
@@ -20,6 +30,7 @@
         ".wireit",
         "node_modules",
         "public",
+        "test",
         "tsconfig.tsbuildinfo",
         "*.log"
       ],
@@ -30,7 +41,7 @@
   ],
   "hosting": {
     "cleanUrls": true,
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": ["firebase.json", "test/**", "**/.*", "**/node_modules/**"],
     "public": "dist/nuxt/public",
     "rewrites": [
       {

@@ -1,0 +1,112 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Unit tests > layouts > default > renders the default layout 1`] = `
+"<div class="v-layout rounded rounded-md">
+  <header class="v-toolbar v-toolbar--density-default v-theme--dark v-locale--is-ltr v-app-bar" style="top: 0px; z-index: 1006; transform: translateY(0px); position: fixed; transition: none !important; left: 0px; width: calc(100% - 0px - 0px);">
+    <!---->
+    <div class="v-toolbar__content" style="height: 64px;">
+      <!---->
+      <!----><button type="button" class="v-btn v-btn--icon v-theme--dark v-btn--density-default v-btn--size-default v-btn--variant-text v-app-bar-nav-icon" data-testid="navigation-drawer"><span class="v-btn__overlay"></span><span class="v-btn__underlay"></span>
+        <!----><span class="v-btn__content" data-no-activator=""><i class="mdi-menu mdi v-icon notranslate v-theme--dark v-icon--size-default" aria-hidden="true"></i></span>
+        <!---->
+        <!---->
+      </button>
+      <div class="v-toolbar-title v-app-bar-title">
+        <div class="v-toolbar-title__placeholder">
+          <!----> Application
+        </div>
+      </div>
+      <!---->
+    </div>
+    <transition-stub name="expand-transition" appear="false" persisted="false" css="true">
+      <!---->
+    </transition-stub>
+  </header>
+  <nav class="v-navigation-drawer v-navigation-drawer--left v-navigation-drawer--temporary v-theme--dark v-navigation-drawer--mobile" style="left: 0px; z-index: 1004; transform: translateX(-256px); position: fixed; height: calc(100% - 64px - 0px); top: 64px; bottom: 0px; width: 256px; transition: none !important;">
+    <!---->
+    <!---->
+    <div class="v-navigation-drawer__content">
+      <div class="v-list v-theme--dark bg-transparent v-list--density-default v-list--one-line" tabindex="0" role="listbox"><a class="v-list-item v-list-item--link v-theme--dark v-list-item--density-default v-list-item--one-line rounded-0 v-list-item--variant-text" tabindex="-2"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span>
+          <!---->
+          <div class="v-list-item__content" data-no-activator="">
+            <div class="v-list-item-title">Home</div>
+            <!---->
+            <!---->
+          </div>
+          <!---->
+        </a>
+        <div class="v-list-subheader">
+          <div class="v-list-subheader__text">demos</div>
+        </div><a class="v-list-item v-list-item--link v-theme--dark v-list-item--density-default v-list-item--one-line rounded-0 v-list-item--variant-text" tabindex="-2"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span>
+          <!---->
+          <div class="v-list-item__content" data-no-activator="">
+            <div class="v-list-item-title">Hello</div>
+            <!---->
+            <!---->
+          </div>
+          <!---->
+        </a><a class="v-list-item v-list-item--link v-theme--dark v-list-item--density-default v-list-item--one-line rounded-0 v-list-item--variant-text" tabindex="-2"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span>
+          <!---->
+          <div class="v-list-item__content" data-no-activator="">
+            <div class="v-list-item-title">Counter</div>
+            <!---->
+            <!---->
+          </div>
+          <!---->
+        </a><a class="v-list-item v-list-item--link v-theme--dark v-list-item--density-default v-list-item--one-line rounded-0 v-list-item--variant-text" tabindex="-2"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span>
+          <!---->
+          <div class="v-list-item__content" data-no-activator="">
+            <div class="v-list-item-title">Tasks</div>
+            <!---->
+            <!---->
+          </div>
+          <!---->
+        </a><a class="v-list-item v-list-item--link v-theme--dark v-list-item--density-default v-list-item--one-line rounded-0 v-list-item--variant-text" tabindex="-2"><span class="v-list-item__overlay"></span><span class="v-list-item__underlay"></span>
+          <!---->
+          <div class="v-list-item__content" data-no-activator="">
+            <div class="v-list-item-title">Login</div>
+            <!---->
+            <!---->
+          </div>
+          <!---->
+        </a>
+      </div>
+    </div>
+    <!---->
+  </nav>
+  <transition-stub name="fade-transition" appear="false" persisted="false" css="true">
+    <!---->
+  </transition-stub>
+  <main class="v-main d-flex flex-column align-center justify-center" style="--v-layout-left: 0px; --v-layout-right: 0px; --v-layout-top: 64px; --v-layout-bottom: 0px; transition: none !important;">
+    <div class="v-container v-locale--is-ltr">
+      <ul class="v-breadcrumbs v-breadcrumbs--density-default">
+        <li class="v-breadcrumbs__prepend"><i class="mdi-home mdi v-icon notranslate v-theme--dark v-icon--size-default v-icon--start" aria-hidden="true"></i></li>
+        <li class="v-breadcrumbs-item"><a class="v-breadcrumbs-item--link">Home</a></li>
+        <!---->
+        <!---->
+      </ul>
+      <div class="v-card v-theme--dark v-card--density-default v-card--variant-elevated" style="min-height: 300px;">
+        <!---->
+        <div class="v-card__loader">
+          <div class="v-progress-linear v-theme--dark v-locale--is-ltr" style="top: 0px; height: 0px; --v-progress-linear-height: 2px;" role="progressbar" aria-hidden="true" aria-valuemin="0" aria-valuemax="100">
+            <!---->
+            <div class="v-progress-linear__background" style="opacity: NaN;"></div>
+            <div class="v-progress-linear__buffer" style="opacity: NaN; width: 0%;"></div>
+            <transition-stub name="fade-transition" appear="false" persisted="false" css="true">
+              <div class="v-progress-linear__indeterminate">
+                <div class="v-progress-linear__indeterminate long"></div>
+                <div class="v-progress-linear__indeterminate short"></div>
+              </div>
+            </transition-stub>
+            <!---->
+          </div>
+        </div>
+        <!---->
+        <!---->
+        <!---->
+        <!----><span class="v-card__underlay"></span>
+      </div>
+    </div>
+  </main>
+</div>"
+`;
