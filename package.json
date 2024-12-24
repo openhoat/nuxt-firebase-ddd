@@ -2,7 +2,7 @@
   "dependencies": {
     "@mdi/font": "7.4.47",
     "@nuxt/kit": "3.14.1592",
-    "@nuxtjs/robots": "5.0.1",
+    "@nuxtjs/robots": "5.1.0",
     "firebase": "11.1.0",
     "firebase-admin": "13.0.2",
     "h3": "1.13.0",
@@ -24,15 +24,15 @@
     "sass-embedded": "1.83.0",
     "typescript": "5.7.2",
     "vite-plugin-vuetify": "2.0.4",
-    "vue-tsc": "2.1.10"
+    "vue-tsc": "2.2.0"
   },
   "description": "Demo project about nuxt and firebase functions",
   "engines": {
-    "node": "20.18.0",
-    "pnpm": "9.12.3"
+    "node": "20.18.1",
+    "pnpm": "9.15.1"
   },
   "name": "nuxt-firebase",
-  "packageManager": "pnpm@9.12.3",
+  "packageManager": "pnpm@9.15.1",
   "private": true,
   "scripts": {
     "build": "wireit",
@@ -76,8 +76,8 @@
   "type": "module",
   "version": "0.0.1",
   "volta": {
-    "node": "20.18.0",
-    "pnpm": "9.12.3"
+    "node": "20.18.1",
+    "pnpm": "9.15.1"
   },
   "wireit": {
     "build": {
