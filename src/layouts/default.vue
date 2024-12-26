@@ -1,27 +1,33 @@
+<script lang="ts" setup>
+import Breadcrumbs from '~/components/Breadcrumbs.vue'
+import { useState } from '#app'
+
+const drawer = useState('drawer', () => false)
+const switchDrawer = () => {
+  drawer.value = !drawer.value
+}
+</script>
+
 <template>
-  <div>
-    <div>
-      <h3>Application</h3>
-    </div>
+  <v-layout class="rounded rounded-md">
+    <v-app-bar>
+      <v-app-bar-nav-icon @click="switchDrawer()"></v-app-bar-nav-icon>
+      <v-app-bar-title> Application </v-app-bar-title>
+    </v-app-bar>
     <client-only>
-      <div>
-        <h4>Navigation</h4>
-        <ul>
-          <li><NuxtLink to="/">Home</NuxtLink></li>
-          <li>
-            demos
-            <ul>
-              <li><NuxtLink to="/demos/hello">Hello</NuxtLink></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+      <v-navigation-drawer v-model="drawer">
+        <v-list>
+          <v-list-item to="/" title="Home"></v-list-item>
+          <v-list-subheader title="demos" />
+          <v-list-item to="/demos/hello" title="Hello"></v-list-item>
+        </v-list>
+      </v-navigation-drawer>
     </client-only>
-    <div class="d-flex flex-column align-center justify-center">
-      <div>
-        <div style="min-height: 300px"><slot /></div>
-      </div>
-    </div>
-  </div>
+    <v-main class="d-flex flex-column align-center justify-center">
+      <v-container>
+        <Breadcrumbs />
+        <v-card style="min-height: 300px"> <slot /></v-card
+      ></v-container>
+    </v-main>
+  </v-layout>
 </template>
-<script setup lang="ts"></script>
