@@ -9,8 +9,10 @@ const hello = () => {
 </script>
 
 <template>
-  <div>
-    <button @click="hello()">Hello</button>
-    <div :v-if="text !== undefined">{{ text }}</div>
-  </div>
+  <v-container data-testid="helloContainer">
+    <v-btn data-testid="helloButton" @click="hello()">Hello</v-btn>
+    <v-card-text data-testid="helloText" :v-if="text !== undefined">{{
+      text
+    }}</v-card-text>
+  </v-container>
 </template>

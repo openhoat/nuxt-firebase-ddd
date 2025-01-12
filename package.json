@@ -20,7 +20,9 @@
     "rimraf": "6.0.1",
     "sass-embedded": "1.83.4",
     "typescript": "5.7.3",
-    "vue-tsc": "2.2.0"
+    "vite-plugin-vuetify": "2.0.4",
+    "vue-tsc": "2.2.0",
+    "vuetify": "3.7.9"
   },
   "description": "Demo project about nuxt and firebase functions",
   "engines": {
