@@ -45,7 +45,7 @@
   },
   "description": "Demo project about nuxt and firebase functions",
   "engines": {
-    "node": "20.18.1",
+    "node": "22.13.0",
     "pnpm": "9.15.4"
   },
   "name": "nuxt-firebase",
@@ -108,7 +108,7 @@
   "type": "module",
   "version": "0.0.1",
   "volta": {
-    "node": "20.18.1",
+    "node": "22.13.0",
     "pnpm": "9.15.4"
   },
   "wireit": {
