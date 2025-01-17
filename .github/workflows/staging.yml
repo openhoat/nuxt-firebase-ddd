@@ -21,8 +21,6 @@ jobs:
       git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
   test-e2e:
     name: Staging e2e tests
-    needs:
-      - build
     uses: ./.github/workflows/test-e2e.yml
     with:
       firebase_env: staging
