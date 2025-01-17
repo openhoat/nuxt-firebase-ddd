@@ -28,7 +28,7 @@ runs:
       uses: google/wireit@setup-github-actions-caching/v2
     - name: Install dependencies
       shell: bash
-      run: pnpm --frozen-lockfile --prefer-offline install
+      run: pnpm --frozen-lockfile --prefer-offline install --ignore-scripts
       env:
         # Other environment variables
         HUSKY: '0' # By default do not run HUSKY install

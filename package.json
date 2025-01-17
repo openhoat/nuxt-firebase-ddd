@@ -78,6 +78,9 @@
     "format": "biome format .",
     "format:fix": "biome format --fix .",
     "generate": "wireit",
+    "generate:local": "cross-env ENVIRONMENT=local pnpm run generate",
+    "generate:prod": "cross-env ENVIRONMENT=prod pnpm run generate",
+    "generate:staging": "cross-env ENVIRONMENT=staging pnpm run generate",
     "git-crypt:unlock": "wireit",
     "kill:emulators": "lsof -t -i:4000,4400,5000,5001 | xargs -r kill -s TERM",
     "lint": "biome lint .",
@@ -88,8 +91,7 @@
     "postinstall": "pnpm run build:prepare",
     "start": "wireit",
     "start:emulators": "wireit",
-    "playwright:install": "pnpm exec playwright install chromium",
-    "playwright:install:ci": "pnpm run playwright:install --with-deps",
+    "playwright:install": "pnpm exec playwright install chromium --with-deps",
     "prepare": "husky",
     "test:e2e": "pnpm exec playwright test",
     "test:e2e:prod": "cross-env PLAYWRIGHT_ENV=prod pnpm run test:e2e",
@@ -272,7 +274,7 @@
     },
     "generate": {
       "clean": "if-file-deleted",
-      "command": "nuxt generate --dotenv .env.local",
+      "command": "nuxt generate --dotenv .env.${ENVIRONMENT}",
       "env": {
         "NODE_ENV": "production"
       },
