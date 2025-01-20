@@ -2,9 +2,9 @@
   "dependencies": {
     "@mdi/font": "7.4.47",
     "@nuxt/kit": "3.15.2",
-    "@nuxtjs/robots": "5.1.1",
+    "@nuxtjs/robots": "5.2.1",
     "@pinia/nuxt": "0.9.0",
-    "firebase": "11.1.0",
+    "firebase": "11.2.0",
     "firebase-admin": "13.0.2",
     "h3": "1.13.1",
     "jsonwebtoken": "9.0.2",
