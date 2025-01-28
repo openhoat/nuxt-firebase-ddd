@@ -54,9 +54,12 @@
   "scripts": {
     "build": "wireit",
     "build:firebase": "wireit",
-    "build:firebase:local": "cross-env ENVIRONMENT=local pnpm run build:firebase",
-    "build:firebase:prod": "cross-env ENVIRONMENT=prod pnpm run build:firebase",
-    "build:firebase:staging": "cross-env ENVIRONMENT=staging pnpm run build:firebase",
+    "build:firebase:copy:env": "wireit",
+    "build:firebase:nuxt": "wireit",
+    "build:firebase:nuxt:prod": "wireit",
+    "build:firebase:nuxt:staging": "wireit",
+    "build:firebase:prod": "wireit",
+    "build:firebase:staging": "wireit",
     "build:prepare": "wireit",
     "check": "biome check .",
     "check:all": "wireit",
@@ -67,7 +70,7 @@
     "clean:npm": "wireit",
     "clean:nuxt": "wireit",
     "clean:ts": "wireit",
-    "clean:wireit": "rimraf '.wireit/'",
+    "clean:wireit": "rimraf .wireit/*/cache",
     "deploy": "wireit",
     "deploy:ci:prod": "wireit",
     "deploy:ci:staging": "wireit",
@@ -78,9 +81,8 @@
     "format": "biome format .",
     "format:fix": "biome format --fix .",
     "generate": "wireit",
-    "generate:local": "cross-env ENVIRONMENT=local pnpm run generate",
-    "generate:prod": "cross-env ENVIRONMENT=prod pnpm run generate",
-    "generate:staging": "cross-env ENVIRONMENT=staging pnpm run generate",
+    "generate:prod": "wireit",
+    "generate:staging": "wireit",
     "git-crypt:unlock": "wireit",
     "kill:emulators": "lsof -t -i:4000,4400,5000,5001 | xargs -r kill -s TERM",
     "lint": "biome lint .",
@@ -159,7 +161,7 @@
     },
     "build:firebase:nuxt": {
       "clean": "if-file-deleted",
-      "command": "nuxt build --preset=firebase --dotenv .env.${ENVIRONMENT}",
+      "command": "nuxt build --preset=firebase --dotenv .env.local",
       "env": {
         "NODE_ENV": "production"
       },
@@ -180,6 +182,62 @@
         "dist/nuxt/public/**",
         "dist/nuxt/server/**"
       ]
+    },
+    "build:firebase:nuxt:prod": {
+      "clean": "if-file-deleted",
+      "command": "nuxt build --preset=firebase --dotenv .env.prod",
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "files": [
+        "src/**",
+        ".env",
+        ".env.local",
+        ".firebaserc",
+        "fire*.json",
+        "nuxt.config.ts",
+        "package.json",
+        "pnpm-lock.yaml",
+        "tsconfig.json"
+      ],
+      "output": [
+        "nuxt-build/**",
+        "dist/nuxt/nitro.json",
+        "dist/nuxt/public/**",
+        "dist/nuxt/server/**"
+      ]
+    },
+    "build:firebase:nuxt:staging": {
+      "clean": "if-file-deleted",
+      "command": "nuxt build --preset=firebase --dotenv .env.staging",
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "files": [
+        "src/**",
+        ".env",
+        ".env.local",
+        ".firebaserc",
+        "fire*.json",
+        "nuxt.config.ts",
+        "package.json",
+        "pnpm-lock.yaml",
+        "tsconfig.json"
+      ],
+      "output": [
+        "nuxt-build/**",
+        "dist/nuxt/nitro.json",
+        "dist/nuxt/public/**",
+        "dist/nuxt/server/**"
+      ]
+    },
+    "build:firebase:prod": {
+      "command": "pnpm run build:firebase:copy:env",
+      "dependencies": ["build:firebase:nuxt:prod"]
+    },
+    "build:firebase:staging": {
+      "command": "pnpm run build:firebase:copy:env",
+      "dependencies": ["build:firebase:nuxt:staging"]
     },
     "build:prepare": {
       "command": "nuxt prepare",
@@ -274,7 +332,45 @@
     },
     "generate": {
       "clean": "if-file-deleted",
-      "command": "nuxt generate --dotenv .env.${ENVIRONMENT}",
+      "command": "nuxt generate --dotenv .env.local",
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "files": [
+        "src/**",
+        ".env",
+        ".env.local",
+        ".firebaserc",
+        "fire*.json",
+        "nuxt.config.ts",
+        "package.json",
+        "pnpm-lock.yaml",
+        "tsconfig.json"
+      ],
+      "output": ["nuxt-build/**", "dist/nuxt/nitro.json", "dist/nuxt/public/**"]
+    },
+    "generate:prod": {
+      "clean": "if-file-deleted",
+      "command": "nuxt generate --dotenv .env.prod",
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "files": [
+        "src/**",
+        ".env",
+        ".env.local",
+        ".firebaserc",
+        "fire*.json",
+        "nuxt.config.ts",
+        "package.json",
+        "pnpm-lock.yaml",
+        "tsconfig.json"
+      ],
+      "output": ["nuxt-build/**", "dist/nuxt/nitro.json", "dist/nuxt/public/**"]
+    },
+    "generate:staging": {
+      "clean": "if-file-deleted",
+      "command": "nuxt generate --dotenv .env.staging",
       "env": {
         "NODE_ENV": "production"
       },
@@ -303,7 +399,7 @@
     },
     "start:emulators": {
       "command": "firebase emulators:start --only auth,firestore,functions,hosting",
-      "dependencies": ["build:firebase:local"],
+      "dependencies": ["build:firebase"],
       "env": {
         "NODE_ENV": "production"
       },
