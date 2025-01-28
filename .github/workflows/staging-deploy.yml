@@ -1,0 +1,19 @@
+name: 'Deploy to staging'
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - QA staging
+    types:
+      - completed
+
+jobs:
+  deploy:
+    name: Staging deploy
+    uses: ./.github/workflows/deploy.yml
+    with:
+      firebase_env: staging
+    secrets:
+      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
+      firebase_service_account: '${{ secrets.STAGING_FIREBASE_SERVICE_ACCOUNT }}'
