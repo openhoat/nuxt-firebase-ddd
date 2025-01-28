@@ -12,6 +12,7 @@
 /.envrc
 /.env.local
 /.git-crypt-key
+/.secrets
 
 *.log
 tsconfig.tsbuildinfo
