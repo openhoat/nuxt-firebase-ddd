@@ -11,8 +11,8 @@
 
 /.envrc
 /.env.local
-/.git-crypt-key
 /.secrets
+/firebase-service-account-*.json
 
 *.log
 tsconfig.tsbuildinfo

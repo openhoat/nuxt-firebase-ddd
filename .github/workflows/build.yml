@@ -1,11 +1,28 @@
 on:
   workflow_call:
     inputs:
-      firebase_env:
+      firebase_app_id:
+        type: string
+        required: true
+      firebase_auth_domain:
+        type: string
+        required: true
+      firebase_measurement_id:
+        type: string
+        required: true
+      firebase_messaging_sender_id:
+        type: string
+        required: true
+      firebase_project_id:
+        type: string
+        required: true
+      firebase_storage_bucket:
         type: string
         required: true
     secrets:
-      git_crypt_key:
+      firebase_api_key:
+        required: true
+      firebase_service_account:
         required: true
 
 jobs:
@@ -14,18 +31,27 @@ jobs:
     steps:
       - name: Checkout git project
         uses: actions/checkout@v4
-      - name: Unlock git crypt
-        uses: sliteteam/github-action-git-crypt-unlock@1.3.0
-        env:
-          GIT_CRYPT_KEY: ${{ secrets.git_crypt_key }}
       - name: Install PNPM and dependencies
         uses: ./.github/actions/pnpm-install
+      - name: Generate local environment file
+        run: bin/generate-env-local > .env.local
+        env:
+          FIREBASE_API_KEY: ${{ secrets.firebase_api_key }}
+          FIREBASE_APP_ID: ${{ inputs.firebase_app_id }}
+          FIREBASE_AUTH_DOMAIN: ${{ inputs.firebase_auth_domain }}
+          FIREBASE_MEASUREMENT_ID: ${{ inputs.firebase_measurement_id }}
+          FIREBASE_MESSAGING_SENDER_ID: ${{ inputs.firebase_messaging_sender_id }}
+          FIREBASE_PROJECT_ID: ${{ inputs.firebase_project_id }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.firebase_service_account }}
+          FIREBASE_STORAGE_BUCKET: ${{ inputs.firebase_storage_bucket }}
       - name: Build nuxt project
-        run: pnpm run build:firebase:${{ inputs.firebase_env }}
+        run: pnpm run build:firebase
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: 'build'
+          include-hidden-files: true
           path: |
             nuxt-build/
             dist/nuxt/
+            .env.local

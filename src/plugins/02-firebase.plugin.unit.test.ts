@@ -37,7 +37,7 @@ describe('Unit tests', () => {
           connectAuthEmulator: connectAuthEmulatorMock,
           getAuth: getAuthMock,
         }))
-        firebasePlugin = (await import('@/plugins/02-firebase.plugin'))
+        firebasePlugin = (await import('~/plugins/02-firebase.plugin.client'))
           .default as typeof firebasePlugin
       })
       beforeEach(() => {

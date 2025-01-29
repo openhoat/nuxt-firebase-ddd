@@ -9,15 +9,9 @@ jobs:
   check:
     name: Prod check
     uses: ./.github/workflows/check.yml
-    secrets:
-      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
   build:
     name: Prod build
     uses: ./.github/workflows/build.yml
-    with:
-      firebase_env: prod
-    secrets:
-      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
   deploy:
     name: Prod deploy
     needs:
@@ -27,5 +21,4 @@ jobs:
     with:
       firebase_env: prod
     secrets:
-      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
       firebase_service_account: '${{ secrets.PROD_FIREBASE_SERVICE_ACCOUNT }}'

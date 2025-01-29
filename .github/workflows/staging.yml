@@ -10,15 +10,19 @@ jobs:
   check:
     name: Staging check
     uses: ./.github/workflows/check.yml
-    secrets:
-      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
   build:
     name: Staging build
     uses: ./.github/workflows/build.yml
     with:
-      firebase_env: staging
+      firebase_app_id: '1:459872309701:web:976518a789250ece383bac'
+      firebase_auth_domain: 'headwood-1cdfb.firebaseapp.com'
+      firebase_measurement_id: 'G-ZPFSNFQVFV'
+      firebase_messaging_sender_id: '459872309701'
+      firebase_project_id: 'headwood-1cdfb'
+      firebase_storage_bucket: 'headwood-1cdfb.firebasestorage.app'
     secrets:
-      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
+      firebase_api_key: '${{ secrets.STAGING_FIREBASE_API_KEY }}'
+      firebase_service_account: '${{ secrets.STAGING_FIREBASE_SERVICE_ACCOUNT }}'
   test-e2e:
     name: Staging e2e tests
     needs:
@@ -26,13 +30,9 @@ jobs:
     uses: ./.github/workflows/test-e2e.yml
     with:
       firebase_env: staging
-    secrets:
-      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
   test-unit:
     name: Staging unit tests
     uses: ./.github/workflows/test-unit.yml
-    secrets:
-      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
   deploy:
     name: Staging deploy
     needs:
@@ -44,5 +44,4 @@ jobs:
     with:
       firebase_env: staging
     secrets:
-      git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
       firebase_service_account: '${{ secrets.STAGING_FIREBASE_SERVICE_ACCOUNT }}'
