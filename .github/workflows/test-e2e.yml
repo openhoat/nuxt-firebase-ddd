@@ -23,12 +23,12 @@ jobs:
           GIT_CRYPT_KEY: ${{ secrets.git_crypt_key }}
       - name: Install PNPM and dependencies
         uses: ./.github/actions/pnpm-install
+      - name: Install playwright
+        run: pnpm run playwright:install
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
           name: 'build'
-      - name: Install playwright
-        run: pnpm run playwright:install
       - name: Run e2e tests
         run: pnpm run test:e2e
         env:

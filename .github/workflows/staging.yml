@@ -35,7 +35,6 @@ jobs:
       git_crypt_key: ${{ secrets.GIT_CRYPT_KEY }}
   deploy:
     name: Staging deploy
-    if: github.ref == 'refs/heads/develop'
     needs:
       - check
       - build
