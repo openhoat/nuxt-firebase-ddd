@@ -192,7 +192,7 @@
       "files": [
         "src/**",
         ".env",
-        ".env.local",
+        ".env.prod",
         ".firebaserc",
         "fire*.json",
         "nuxt.config.ts",
@@ -216,7 +216,7 @@
       "files": [
         "src/**",
         ".env",
-        ".env.local",
+        ".env.staging",
         ".firebaserc",
         "fire*.json",
         "nuxt.config.ts",
@@ -358,7 +358,7 @@
       "files": [
         "src/**",
         ".env",
-        ".env.local",
+        ".env.prod",
         ".firebaserc",
         "fire*.json",
         "nuxt.config.ts",
@@ -377,7 +377,7 @@
       "files": [
         "src/**",
         ".env",
-        ".env.local",
+        ".env.staging",
         ".firebaserc",
         "fire*.json",
         "nuxt.config.ts",
