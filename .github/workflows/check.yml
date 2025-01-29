@@ -1,8 +1,5 @@
 on:
   workflow_call:
-    secrets:
-      git_crypt_key:
-        required: true
 
 jobs:
   check:
@@ -10,10 +7,6 @@ jobs:
     steps:
       - name: Checkout git project
         uses: actions/checkout@v4
-      - name: Unlock git crypt
-        uses: sliteteam/github-action-git-crypt-unlock@1.3.0
-        env:
-          GIT_CRYPT_KEY: ${{ secrets.git_crypt_key }}
       - name: Install PNPM and dependencies
         uses: ./.github/actions/pnpm-install
       - name: Check project quality
