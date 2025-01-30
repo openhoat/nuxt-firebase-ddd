@@ -23,7 +23,6 @@
     "@vitest/coverage-v8": "3.0.4",
     "@vitest/ui": "3.0.4",
     "@vue/test-utils": "2.4.6",
-    "cpx2": "8.0.0",
     "cross-env": "7.0.3",
     "dotenv": "16.4.7",
     "firebase-functions": "6.3.0",
@@ -54,7 +53,6 @@
   "scripts": {
     "build": "wireit",
     "build:firebase": "wireit",
-    "build:firebase:copy:env": "wireit",
     "build:firebase:nuxt": "wireit",
     "build:prepare": "wireit",
     "check": "biome check .",
@@ -131,25 +129,7 @@
       ]
     },
     "build:firebase": {
-      "dependencies": [
-        "build:firebase:nuxt",
-        "build:firebase:copy:env:global",
-        "build:firebase:copy:env"
-      ]
-    },
-    "build:firebase:copy:env": {
-      "clean": "if-file-deleted",
-      "command": "cpx .env.local dist/nuxt/server/ -v",
-      "dependencies": ["build:firebase:copy:env:global"],
-      "files": [".env.local"],
-      "output": ["dist/nuxt/server/.env.local"]
-    },
-    "build:firebase:copy:env:global": {
-      "clean": "if-file-deleted",
-      "command": "cpx .env dist/nuxt/server/ -v",
-      "dependencies": ["build:firebase:nuxt"],
-      "files": [".env"],
-      "output": ["dist/nuxt/server/.env"]
+      "dependencies": ["build:firebase:nuxt"]
     },
     "build:firebase:nuxt": {
       "clean": "if-file-deleted",
