@@ -1,23 +1,32 @@
 on:
   workflow_call:
+    inputs:
+      firebase_app_id:
+        type: string
+        required: true
+      firebase_auth_domain:
+        type: string
+        required: true
+      firebase_measurement_id:
+        type: string
+        required: true
+      firebase_messaging_sender_id:
+        type: string
+        required: true
+      firebase_project_id:
+        type: string
+        required: true
+      firebase_storage_bucket:
+        type: string
+        required: true
     secrets:
       firebase_api_key:
         required: true
-      firebase_app_id:
-        required: true
-      firebase_auth_domain:
-        required: true
-      firebase_measurement_id:
-        required: true
-      firebase_messaging_sender_id:
-        required: true
-      firebase_project_id:
-        required: true
+#      firebase_service_account:
+#        required: true
       firebase_service_account_client_email:
         required: true
       firebase_service_account_private_key:
-        required: true
-      firebase_storage_bucket:
         required: true
 
 jobs:
@@ -32,20 +41,22 @@ jobs:
         uses: ./.github/actions/create-env-file
         with:
           firebase_api_key: ${{ secrets.firebase_api_key }}
-          firebase_app_id: ${{ secrets.firebase_app_id }}
-          firebase_auth_domain: ${{ secrets.firebase_auth_domain }}
-          firebase_measurement_id: ${{ secrets.firebase_measurement_id }}
-          firebase_messaging_sender_id: ${{ secrets.firebase_messaging_sender_id }}
-          firebase_project_id: ${{ secrets.firebase_project_id }}
+          firebase_app_id: ${{ inputs.firebase_app_id }}
+          firebase_auth_domain: ${{ inputs.firebase_auth_domain }}
+          firebase_measurement_id: ${{ inputs.firebase_measurement_id }}
+          firebase_messaging_sender_id: ${{ inputs.firebase_messaging_sender_id }}
+          firebase_project_id: ${{ inputs.firebase_project_id }}
+#          firebase_service_account: ${{ secrets.firebase_service_account }}
           firebase_service_account_client_email: ${{ secrets.firebase_service_account_client_email }}
           firebase_service_account_private_key: ${{ secrets.firebase_service_account_private_key }}
-          firebase_storage_bucket: ${{ secrets.firebase_storage_bucket }}
+          firebase_storage_bucket: ${{ inputs.firebase_storage_bucket }}
       - name: Build nuxt project
         run: pnpm run build:firebase
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: 'build'
+          include-hidden-files: true
           path: |
             nuxt-build/
             dist/nuxt/

@@ -33,10 +33,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Extract Firebase Service Account
-      uses: sergeysova/jq-action@v2
-      with:
-        cmd: 'jq .version package.json -r'
     - name: Create envfile
       uses: SpicyPizza/create-envfile@v2.0
       with:
