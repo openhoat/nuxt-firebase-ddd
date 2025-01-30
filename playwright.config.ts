@@ -10,11 +10,11 @@ import {
 import { config } from 'dotenv'
 import { isCI } from 'std-env'
 
-const { PLAYWRIGHT_BASE_URL, PLAYWRIGHT_ENV = 'local' } = process.env
+const { PLAYWRIGHT_BASE_URL } = process.env
 
-config({ path: '.env' })
+config({ path: '.env.local' })
 config({ path: '.env.test' })
-config({ path: `.env.${PLAYWRIGHT_ENV}` })
+config({ path: '.env' })
 
 const rootDir = fileURLToPath(new URL('.', import.meta.url))
 
