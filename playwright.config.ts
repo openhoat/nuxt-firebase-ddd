@@ -19,10 +19,9 @@ config({ path: '.env' })
 const rootDir = fileURLToPath(new URL('.', import.meta.url))
 
 const buildPwConfig = (): PlaywrightTestConfig<ConfigOptions> => {
-  const devServer = !isCI && !PLAYWRIGHT_BASE_URL
-  const localServer = isCI && !PLAYWRIGHT_BASE_URL
+  const localServer = !PLAYWRIGHT_BASE_URL
   const baseURL = PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000'
-  const host = !devServer ? baseURL : undefined
+  const host = !localServer ? baseURL : undefined
   const projects = [
     {
       name: 'chromium',
@@ -44,14 +43,13 @@ const buildPwConfig = (): PlaywrightTestConfig<ConfigOptions> => {
     : [['html', { outputFolder: './dist/test/e2e/html-report' }]]
   const retries = isCI ? 2 : 0
   const workers = isCI ? 1 : undefined
-  const webServer =
-    localServer && !devServer
-      ? {
-          command: 'pnpm start',
-          url: baseURL,
-          reuseExistingServer: true,
-        }
-      : undefined
+  const webServer = localServer
+    ? {
+        command: 'pnpm start',
+        url: baseURL,
+        reuseExistingServer: true,
+      }
+    : undefined
   return {
     forbidOnly: isCI,
     outputDir: './dist/test/e2e/results',
@@ -63,7 +61,7 @@ const buildPwConfig = (): PlaywrightTestConfig<ConfigOptions> => {
     use: {
       baseURL,
       nuxt: {
-        build: devServer,
+        build: false,
         buildDir: join(rootDir, 'nuxt-build'),
         host,
         nuxtConfig: {
@@ -74,7 +72,7 @@ const buildPwConfig = (): PlaywrightTestConfig<ConfigOptions> => {
           },
         },
         rootDir,
-        server: localServer || devServer,
+        server: localServer,
       },
       trace: 'on-first-retry',
     },
