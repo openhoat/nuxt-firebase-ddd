@@ -22,8 +22,7 @@ jobs:
       firebase_storage_bucket: 'headwood-1cdfb.firebasestorage.app'
     secrets:
       firebase_api_key: '${{ secrets.STAGING_FIREBASE_API_KEY }}'
-      firebase_service_account_client_email: '${{ secrets.STAGING_FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL }}'
-      firebase_service_account_private_key: '${{ secrets.STAGING_FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY }}'
+      firebase_service_account: '${{ secrets.STAGING_FIREBASE_SERVICE_ACCOUNT }}'
   test-e2e:
     name: Staging e2e tests
     needs:

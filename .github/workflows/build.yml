@@ -22,9 +22,7 @@ on:
     secrets:
       firebase_api_key:
         required: true
-      firebase_service_account_client_email:
-        required: true
-      firebase_service_account_private_key:
+      firebase_service_account:
         required: true
 
 jobs:
@@ -35,20 +33,17 @@ jobs:
         uses: actions/checkout@v4
       - name: Install PNPM and dependencies
         uses: ./.github/actions/pnpm-install
-      - name: Create envfile
-        uses: SpicyPizza/create-envfile@v2.0
-        with:
-          envkey_NUXT_FIREBASE_API_KEY: ${{ secrets.firebase_api_key }}
-          envkey_NUXT_FIREBASE_APP_ID: ${{ inputs.firebase_app_id }}
-          envkey_NUXT_FIREBASE_AUTH_DOMAIN: ${{ inputs.firebase_auth_domain }}
-          envkey_NUXT_FIREBASE_MEASUREMENT_ID: ${{ inputs.firebase_measurement_id }}
-          envkey_NUXT_FIREBASE_MESSAGING_SENDER_ID: ${{ inputs.firebase_messaging_sender_id }}
-          envkey_NUXT_FIREBASE_PROJECT_ID: ${{ inputs.firebase_project_id }}
-          envkey_NUXT_FIREBASE_SERVICE_ACCOUNT_CLIENT_EMAIL: ${{ secrets.firebase_service_account_client_email }}
-          envkey_NUXT_FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.firebase_service_account_private_key }}
-          envkey_NUXT_FIREBASE_STORAGE_BUCKET: ${{ inputs.firebase_storage_bucket }}
-          file_name: .env.local
-          fail_on_empty: true
+      - name: Generate local environment file
+        run: bin/generate-env-local > .env.local
+        env:
+          FIREBASE_API_KEY: ${{ secrets.firebase_api_key }}
+          FIREBASE_APP_ID: ${{ inputs.firebase_app_id }}
+          FIREBASE_AUTH_DOMAIN: ${{ inputs.firebase_auth_domain }}
+          FIREBASE_MEASUREMENT_ID: ${{ inputs.firebase_measurement_id }}
+          FIREBASE_MESSAGING_SENDER_ID: ${{ inputs.firebase_messaging_sender_id }}
+          FIREBASE_PROJECT_ID: ${{ inputs.firebase_project_id }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.firebase_service_account }}
+          FIREBASE_STORAGE_BUCKET: ${{ inputs.firebase_storage_bucket }}
       - name: Build nuxt project
         run: pnpm run build:firebase
       - name: Upload build artifacts

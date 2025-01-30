@@ -49,7 +49,7 @@ const buildPwConfig = (): PlaywrightTestConfig<ConfigOptions> => {
       ? {
           command: 'pnpm start',
           url: baseURL,
-          reuseExistingServer: false,
+          reuseExistingServer: true,
         }
       : undefined
   return {

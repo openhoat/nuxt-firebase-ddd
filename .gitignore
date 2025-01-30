@@ -12,6 +12,7 @@
 /.envrc
 /.env.local
 /.secrets
+/firebase-service-account-*.json
 
 *.log
 tsconfig.tsbuildinfo
