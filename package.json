@@ -42,10 +42,10 @@
   "description": "Demo project about nuxt and firebase functions",
   "engines": {
     "node": "22.13.1",
-    "pnpm": "9.15.4"
+    "pnpm": "10.2.1"
   },
   "name": "nuxt-firebase",
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@10.2.1",
   "private": true,
   "scripts": {
     "build": "wireit",
@@ -97,7 +97,7 @@
   "version": "0.0.1",
   "volta": {
     "node": "22.13.1",
-    "pnpm": "9.15.4"
+    "pnpm": "10.2.1"
   },
   "wireit": {
     "build": {
