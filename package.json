@@ -36,7 +36,7 @@
     "typescript": "5.7.3",
     "vite-plugin-vuetify": "2.0.4",
     "vitest": "3.0.4",
-    "vue-tsc": "2.2.0",
+    "vue-tsc": "3.3.1",
     "vuetify": "3.7.9"
   },
   "description": "Demo project about nuxt and firebase functions",
