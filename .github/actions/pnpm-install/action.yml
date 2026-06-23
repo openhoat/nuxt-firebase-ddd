@@ -17,7 +17,7 @@ runs:
       run: |
         echo "YEAR_MONTH=$(/bin/date -u "+%Y%m")" >> $GITHUB_OUTPUT
     - name: Setup PNPM cache
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: |
           ${{ env.STORE_PATH }}
