@@ -3,7 +3,7 @@
     "@mdi/font": "7.4.47",
     "@nuxt/kit": "3.15.4",
     "@nuxtjs/robots": "5.2.2",
-    "@pinia/nuxt": "0.9.0",
+    "@pinia/nuxt": "1.0.2",
     "firebase": "11.2.0",
     "firebase-admin": "13.0.2",
     "h3": "1.14.0",
